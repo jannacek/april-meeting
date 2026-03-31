@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artistic Research in Transdisciplinary Consortia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; height: 100%; overflow: hidden; background: #0c0b09; }
+
+:root {
+  --bg:      #0c0b09;
+  --surface: #141210;
+  --border:  rgba(201,169,110,0.1);
+  --border2: rgba(255,255,255,0.06);
+  --gold:    #c9a96e;
+  --gold-lt: #e8cfa0;
+  --cream:   #f0ead8;
+  --muted:   #6b6456;
+  --muted2:  #8a7e70;
+  --accent:  #7a9e8e;
+  --serif:   'Cormorant Garamond', Georgia, serif;
+  --mono:    'DM Mono', monospace;
+  --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ══════════════════ KEYFRAMES ══════════════════ */
+
+@keyframes orb1 {
+  0%,100% { transform: translate(0,0) scale(1);      opacity: 0.07; }
+  33%     { transform: translate(4%,3%) scale(1.1);   opacity: 0.1;  }
+  66%     { transform: translate(-2%,5%) scale(0.95); opacity: 0.06; }
+}
+@keyframes orb2 {
+  0%,100% { transform: translate(0,0) scale(1);         opacity: 0.06; }
+  40%     { transform: translate(-4%,-3%) scale(1.08);  opacity: 0.09; }
+  70%     { transform: translate(3%,-2%) scale(1.03);   opacity: 0.05; }
+}
+@keyframes orb3 {
+  0%,100% { transform: translate(0,0) scale(1);         opacity: 0.03; }
+  50%     { transform: translate(2%,-4%) scale(1.12);   opacity: 0.055; }
+}
+@keyframes ghost-float {
+  0%,100% { transform: translateY(0) translateX(0);      opacity: 0.11; }
+  30%     { transform: translateY(-10px) translateX(-5px); opacity: 0.14; }
+  70%     { transform: translateY(6px) translateX(4px);  opacity: 0.09; }
+}
+@keyframes rule-grow {
+  from { width: 0; opacity: 0; }
+  to   { width: 36px; opacity: 0.5; }
+}
+@keyframes eyebrow-in {
+  0%   { opacity: 0; letter-spacing: 0.4em; }
+  100% { opacity: 0.65; letter-spacing: 0.26em; }
+}
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pq-pulse {
+  0%,100% { box-shadow: -1px 0 0 0 rgba(201,169,110,0.4), -4px 0 12px -4px rgba(201,169,110,0); }
+  50%     { box-shadow: -1px 0 0 0 rgba(201,169,110,0.9), -4px 0 16px -4px rgba(201,169,110,0.25); }
+}
+@keyframes shimmer {
+  from { transform: translateX(-100%) skewX(-15deg); }
+  to   { transform: translateX(250%) skewX(-15deg); }
+}
+@keyframes arrow-bounce {
+  0%,100% { transform: translateX(0); }
+  50%     { transform: translateX(5px); }
+}
+@keyframes sb-border {
+  0%,100% { background-position: 0 0%; }
+  50%     { background-position: 0 100%; }
+}
+@keyframes particle-rise {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-70px) translateX(var(--px)) scale(0.5); opacity: 0; }
+}
+@keyframes dot-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.5); }
+  50%     { box-shadow: 0 0 0 4px rgba(201,169,110,0); }
+}
+
+/* ══════════════════ LAYOUT ══════════════════ */
+
+#app {
+  position: fixed; inset: 0;
+  width: 100vw; height: 100vh; overflow: hidden;
+  font-family: var(--serif); color: var(--cream);
+  background: var(--bg);
+  display: grid; grid-template-columns: 240px 1fr;
+}
+
+#orb1, #orb2, #orb3 {
+  position: absolute; border-radius: 50%;
+  pointer-events: none; z-index: 0; will-change: transform;
+}
+#orb1 {
+  width: 70vw; height: 60vh; top: -15%; left: -10%;
+  background: radial-gradient(ellipse, rgba(201,169,110,0.07) 0%, transparent 70%);
+  animation: orb1 18s ease-in-out infinite;
+}
+#orb2 {
+  width: 60vw; height: 70vh; bottom: -20%; right: -10%;
+  background: radial-gradient(ellipse, rgba(122,158,142,0.06) 0%, transparent 70%);
+  animation: orb2 22s ease-in-out infinite;
+}
+#orb3 {
+  width: 40vw; height: 40vh; top: 30%; left: 35%;
+  background: radial-gradient(ellipse, rgba(201,169,110,0.03) 0%, transparent 70%);
+  animation: orb3 28s ease-in-out infinite;
+}
+
+/* ══════════════════ SIDEBAR ══════════════════ */
+
+#sidebar {
+  position: relative; z-index: 10; height: 100vh;
+  display: flex; flex-direction: column;
+  padding: 44px 24px 36px;
+  background: rgba(10,9,7,0.88); backdrop-filter: blur(24px);
+  overflow-y: auto; scrollbar-width: none; border-right: none;
+}
+#sidebar::after {
+  content: '';
+  position: absolute; top: 0; right: 0; width: 1px; height: 100%;
+  background: linear-gradient(180deg, transparent 0%, rgba(201,169,110,0.15) 20%, rgba(201,169,110,0.35) 50%, rgba(201,169,110,0.15) 80%, transparent 100%);
+  background-size: 100% 200%;
+  animation: sb-border 6s ease-in-out infinite;
+}
+#sidebar::-webkit-scrollbar { display: none; }
+
+.sb-meta { margin-bottom: 36px; }
+.sb-author { font-family: var(--serif); font-size: 14px; font-weight: 300; font-style: italic; color: var(--muted2); line-height: 1.6; }
+.sb-label { margin-top: 7px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); opacity: 0.7; }
+.sb-section { margin-bottom: 16px; }
+.sb-section-title { font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); opacity: 0.6; margin-bottom: 8px; padding-left: 4px; }
+
+.nav-btn {
+  display: flex; align-items: baseline; gap: 8px;
+  width: 100%; padding: 8px 12px; border-radius: 5px;
+  font-family: var(--serif); font-size: 13px; font-weight: 300;
+  color: var(--muted2); cursor: pointer; border: none; background: none;
+  text-align: left; line-height: 1.4;
+  transition: background 0.3s, color 0.3s, padding-left 0.3s;
+  position: relative; overflow: hidden;
+}
+.nav-btn::before {
+  content: ''; position: absolute; left: 0; top: 20%; height: 60%; width: 2px;
+  background: var(--gold); border-radius: 2px;
+  transform: scaleY(0); transition: transform 0.25s var(--ease); transform-origin: center;
+}
+.nav-btn:hover { background: rgba(201,169,110,0.07); color: var(--gold-lt); padding-left: 16px; }
+.nav-btn:hover::before { transform: scaleY(1); }
+.nav-btn.on  { background: rgba(201,169,110,0.1); color: var(--gold); padding-left: 16px; }
+.nav-btn.on::before { transform: scaleY(1); }
+.nav-num { font-family: var(--mono); font-size: 10px; color: var(--muted); flex-shrink: 0; opacity: 0.6; transition: opacity 0.3s; }
+.nav-btn.on .nav-num { color: var(--gold); opacity: 0.9; }
+.sb-divider { height: 1px; background: var(--border); margin: 16px 0; }
+.sb-footer { margin-top: auto; padding-top: 18px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 2.2; opacity: 0.7; }
+kbd { display: inline-block; background: rgba(201,169,110,0.08); border: 1px solid rgba(201,169,110,0.18); border-radius: 3px; padding: 1px 5px; font-size: 9px; font-family: var(--mono); color: var(--gold); }
+
+/* ══════════════════ STAGE ══════════════════ */
+
+#stage { position: relative; z-index: 5; height: 100vh; overflow: hidden; }
+#stage::before, #stage::after {
+  content: ''; position: absolute; width: 40px; height: 40px;
+  border-color: rgba(201,169,110,0.18); border-style: solid;
+  pointer-events: none; z-index: 20; transition: border-color 0.4s;
+}
+#stage::before { top: 20px; left: 20px; border-width: 1px 0 0 1px; }
+#stage::after  { bottom: 20px; right: 20px; border-width: 0 1px 1px 0; }
+#stage:hover::before, #stage:hover::after { border-color: rgba(201,169,110,0.35); }
+
+/* ══════════════════ SLIDES ══════════════════ */
+
+.slide {
+  position: absolute; inset: 0;
+  padding: 52px 72px 76px;
+  display: flex; flex-direction: column; justify-content: center;
+  opacity: 0; transform: translateY(22px);
+  pointer-events: none;
+  transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  overflow-y: auto; scrollbar-width: none;
+}
+.slide::-webkit-scrollbar { display: none; }
+.slide.on  { opacity: 1; transform: translateY(0);     pointer-events: auto; }
+.slide.out { opacity: 0; transform: translateY(-16px); }
+
+.slide.on > * { animation: stagger-in 0.55s var(--ease) both; }
+.slide.on > *:nth-child(1) { animation-delay: 0.05s; }
+.slide.on > *:nth-child(2) { animation-delay: 0.12s; }
+.slide.on > *:nth-child(3) { animation-delay: 0.19s; }
+.slide.on > *:nth-child(4) { animation-delay: 0.26s; }
+.slide.on > *:nth-child(5) { animation-delay: 0.33s; }
+.slide.on > *:nth-child(6) { animation-delay: 0.40s; }
+.slide.on > *:nth-child(7) { animation-delay: 0.47s; }
+.slide.on > *:nth-child(8) { animation-delay: 0.54s; }
+
+.ghost {
+  position: absolute; right: -10px; bottom: -20px;
+  font-family: var(--serif); font-size: clamp(120px, 18vw, 210px);
+  font-weight: 300; font-style: italic;
+  color: rgba(201,169,110,0.11); line-height: 1;
+  user-select: none; pointer-events: none; white-space: nowrap; letter-spacing: -0.02em;
+  text-shadow: 0 0 80px rgba(201,169,110,0.1);
+  animation: ghost-float 20s ease-in-out infinite;
+}
+
+/* ══════════════════ TYPOGRAPHY ══════════════════ */
+
+.s-eyebrow {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase;
+  color: var(--gold); opacity: 0.65; margin-bottom: 14px; flex-shrink: 0;
+}
+.slide.on .s-eyebrow { animation: eyebrow-in 0.7s var(--ease) both; animation-delay: 0.05s; }
+
+.s-rule {
+  width: 36px; height: 1px;
+  background: linear-gradient(90deg, var(--gold), rgba(201,169,110,0.3));
+  opacity: 0.5; margin-bottom: 24px; flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(201,169,110,0.3);
+}
+.slide.on .s-rule { animation: rule-grow 0.6s var(--ease) both; animation-delay: 0.12s; }
+
+h2.disp {
+  font-family: var(--serif); font-size: clamp(33px, 4.4vw, 60px);
+  font-weight: 300; line-height: 1.1; letter-spacing: -0.01em;
+  color: var(--cream); margin-bottom: 26px; max-width: 700px; flex-shrink: 0;
+}
+h2.disp em { font-style: italic; color: var(--gold-lt); }
+
+.lead {
+  font-family: var(--serif); font-size: clamp(19px, 2vw, 24px);
+  font-weight: 300; line-height: 1.6; color: rgba(240,234,216,0.82);
+  max-width: 660px; margin-bottom: 22px; flex-shrink: 0;
+}
+.lead em { font-style: italic; color: var(--gold-lt); }
+
+.body {
+  font-family: var(--serif); font-size: clamp(16px, 1.6vw, 19px);
+  font-weight: 300; line-height: 1.75; color: rgba(240,234,216,0.78);
+  max-width: 640px; flex-shrink: 0;
+}
+.body strong { font-weight: 600; color: var(--cream); }
+.body em { font-style: italic; color: var(--gold-lt); }
+
+.sub-note {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 0.08em; opacity: 0.65; flex-shrink: 0; margin-top: 18px;
+  transition: opacity 0.3s;
+}
+.sub-note:hover { opacity: 1; color: var(--gold); }
+
+/* Tiny reference line */
+.ref-note {
+  position: absolute; bottom: 64px; left: 72px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.12em;
+  color: var(--muted); opacity: 0.38; line-height: 1.6;
+  pointer-events: none;
+}
+
+/* ══════════════════ PULL QUOTE ══════════════════ */
+
+.pq {
+  border-left: 1px solid var(--gold); padding: 12px 22px; margin: 18px 0;
+  max-width: 620px; flex-shrink: 0; opacity: 0.9;
+  animation: pq-pulse 4s ease-in-out infinite;
+  position: relative; overflow: hidden; transition: background 0.3s;
+}
+.pq:hover { background: rgba(201,169,110,0.04); }
+.pq::after {
+  content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.06), transparent);
+  transform: skewX(-15deg);
+}
+.pq:hover::after { animation: shimmer 0.8s ease forwards; }
+.pq p {
+  font-family: var(--serif); font-size: clamp(18px, 1.9vw, 23px);
+  font-weight: 300; font-style: italic; line-height: 1.55; color: var(--cream);
+}
+
+/* ══════════════════ TWO-COLUMN PRECEDENTS (slide 3) ══════════════════ */
+
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 40px; margin-top: 10px; max-width: 820px; flex-shrink: 0;
+}
+.col-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.22em;
+  text-transform: uppercase; margin-bottom: 14px; opacity: 0.65; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.col-label.exists { color: var(--muted2); }
+.col-label.gap    { color: var(--accent); }
+
+.prec-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border2);
+  font-family: var(--serif); font-size: clamp(14px, 1.4vw, 17px);
+  font-weight: 300; line-height: 1.45; color: rgba(240,234,216,0.78);
+  transition: color 0.25s, padding-left 0.25s;
+  cursor: default;
+}
+.prec-item:last-child { border-bottom: none; }
+.prec-item:hover { color: var(--cream); padding-left: 5px; }
+.prec-item::before { content: '—'; flex-shrink: 0; font-size: 10px; opacity: 0.35; margin-top: 2px; }
+.prec-item.gap-item::before { color: var(--accent); }
+.prec-item .prec-tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.1em;
+  color: var(--gold); opacity: 0.6; white-space: nowrap;
+  flex-shrink: 0; margin-top: 2px;
+}
+
+/* ══════════════════ TWO PROBES (slide 5) ══════════════════ */
+
+.probe-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; margin-top: 16px; max-width: 820px; flex-shrink: 0;
+}
+.probe-card {
+  background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12);
+  padding: 22px 20px; position: relative; overflow: hidden;
+  transition: background 0.35s, border-color 0.35s, transform 0.35s var(--ease), box-shadow 0.35s;
+  cursor: default;
+}
+.probe-card:hover {
+  background: rgba(201,169,110,0.08); border-color: rgba(201,169,110,0.28);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px -8px rgba(201,169,110,0.13), 0 4px 12px -4px rgba(0,0,0,0.35);
+}
+.probe-card::before {
+  content: ''; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.08), transparent);
+  transform: skewX(-15deg); pointer-events: none;
+}
+.probe-card:hover::before { animation: shimmer 0.7s ease forwards; }
+.probe-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.35s;
+}
+.probe-card:hover::after { opacity: 0.6; }
+.probe-title {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold); opacity: 0.8;
+  margin-bottom: 12px;
+}
+.probe-body {
+  font-family: var(--serif); font-size: clamp(14px, 1.4vw, 16px);
+  font-weight: 300; line-height: 1.65; color: rgba(240,234,216,0.78);
+}
+.probe-body li {
+  list-style: none; padding: 4px 0 4px 14px; position: relative;
+  border-bottom: 1px solid var(--border2);
+}
+.probe-body li:last-child { border-bottom: none; }
+.probe-body li::before { content: '—'; position: absolute; left: 0; opacity: 0.35; font-size: 10px; top: 6px; }
+
+/* ══════════════════ EMI GRID (slide 6) ══════════════════ */
+
+.emi-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 10px; margin-top: 16px; max-width: 820px; flex-shrink: 0;
+  perspective: 800px;
+}
+.emi-card {
+  background: rgba(201,169,110,0.04); border: 1px solid rgba(201,169,110,0.12);
+  padding: 18px 16px; display: flex; flex-direction: column; gap: 10px;
+  position: relative; overflow: hidden;
+  transition: background 0.35s, border-color 0.35s, transform 0.35s var(--ease), box-shadow 0.35s;
+  transform-style: preserve-3d; cursor: default;
+}
+.emi-card:hover {
+  background: rgba(201,169,110,0.09); border-color: rgba(201,169,110,0.32);
+  transform: translateY(-4px) rotateX(2deg);
+  box-shadow: 0 12px 32px -8px rgba(201,169,110,0.15), 0 4px 12px -4px rgba(0,0,0,0.4);
+}
+.emi-card::before {
+  content: ''; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(201,169,110,0.1), transparent);
+  transform: skewX(-15deg); pointer-events: none;
+}
+.emi-card:hover::before { animation: shimmer 0.7s ease forwards; }
+.emi-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0; transition: opacity 0.35s;
+}
+.emi-card:hover::after { opacity: 0.7; }
+.emi-num {
+  font-family: var(--mono); font-size: 9px; color: var(--gold); opacity: 0.5;
+  letter-spacing: 0.1em; transition: opacity 0.3s;
+}
+.emi-card:hover .emi-num { opacity: 1; }
+.emi-label {
+  font-family: var(--serif); font-size: clamp(13px, 1.3vw, 16px);
+  font-weight: 400; line-height: 1.3; color: var(--cream);
+}
+.emi-desc {
+  font-family: var(--serif); font-size: clamp(12px, 1.1vw, 13.5px);
+  font-weight: 300; line-height: 1.5; color: rgba(240,234,216,0.5);
+  font-style: italic;
+}
+
+/* ══════════════════ CONTRIB LIST (slide 7) ══════════════════ */
+
+.contrib-list { max-width: 640px; margin-top: 16px; flex-shrink: 0; }
+.contrib-item {
+  display: flex; gap: 16px; padding: 13px 0; border-bottom: 1px solid var(--border2);
+  align-items: flex-start; transition: background 0.3s, padding-left 0.3s;
+  border-radius: 4px; cursor: default;
+}
+.contrib-item:last-child { border-bottom: none; }
+.contrib-item:hover { background: rgba(201,169,110,0.04); padding-left: 10px; }
+.contrib-arrow {
+  font-family: var(--serif); font-style: italic; font-size: 14px;
+  color: var(--gold); flex-shrink: 0; padding-top: 2px; opacity: 0.8;
+  display: inline-block; transition: opacity 0.3s;
+}
+.contrib-item:hover .contrib-arrow { animation: arrow-bounce 0.6s ease infinite; opacity: 1; }
+.contrib-text {
+  font-family: var(--serif); font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 300; line-height: 1.65; color: rgba(240,234,216,0.8);
+  transition: color 0.3s;
+}
+.contrib-item:hover .contrib-text { color: var(--cream); }
+.contrib-text strong { font-weight: 600; color: var(--cream); }
+
+/* ══════════════════ GAP GRID (slides 2, 3) ══════════════════ */
+
+.gap-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 40px; margin-top: 12px; max-width: 760px; flex-shrink: 0;
+}
+.gap-item {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 8px 0; border-bottom: 1px solid var(--border2);
+  font-family: var(--serif); font-size: clamp(14px, 1.4vw, 17px);
+  font-weight: 300; line-height: 1.5; color: rgba(240,234,216,0.78);
+  transition: color 0.25s, padding-left 0.25s, border-color 0.25s; cursor: default;
+}
+.gap-item:hover { color: var(--cream); padding-left: 6px; border-color: rgba(255,255,255,0.14); }
+.gap-item::before { content: '—'; flex-shrink: 0; font-size: 11px; opacity: 0.35; transition: opacity 0.25s; }
+.gap-item:hover::before { opacity: 0.8; }
+
+/* ══════════════════ QUESTIONS (slide 8) ══════════════════ */
+
+.q-list { max-width: 700px; margin-top: 10px; flex-shrink: 0; }
+.q-item {
+  display: flex; gap: 18px; align-items: flex-start;
+  padding: 15px 0; border-bottom: 1px solid var(--border2);
+  transition: padding-left 0.3s var(--ease), border-color 0.3s; cursor: default;
+}
+.q-item:last-child { border-bottom: none; }
+.q-item:hover { padding-left: 8px; border-color: rgba(201,169,110,0.22); }
+.q-num {
+  font-family: var(--mono); font-size: 10px; color: var(--gold);
+  opacity: 0.45; flex-shrink: 0; letter-spacing: 0.1em; padding-top: 3px;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.q-item:hover .q-num { opacity: 1; transform: scale(1.15); }
+.q-text {
+  font-family: var(--serif); font-style: italic;
+  font-size: clamp(16px, 1.65vw, 20px); font-weight: 300; line-height: 1.5;
+  color: rgba(240,234,216,0.78); transition: color 0.3s;
+}
+.q-item:hover .q-text { color: var(--cream); }
+
+/* ══════════════════ CONTROLS ══════════════════ */
+
+#nav-ctrl {
+  position: absolute; bottom: 26px; right: 34px;
+  display: flex; align-items: center; gap: 8px; z-index: 50;
+}
+.ctrl-btn {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(14,13,11,0.9); border: 1px solid var(--border);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 15px; color: var(--muted2); backdrop-filter: blur(10px);
+  transition: background 0.25s, transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  user-select: none; position: relative; overflow: hidden;
+}
+.ctrl-btn::before {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.2) 0%, transparent 70%);
+  opacity: 0; transform: scale(0); transition: opacity 0.3s, transform 0.3s;
+}
+.ctrl-btn:hover {
+  background: rgba(201,169,110,0.1); border-color: rgba(201,169,110,0.4);
+  color: var(--gold); transform: scale(1.1); box-shadow: 0 0 16px rgba(201,169,110,0.2);
+}
+.ctrl-btn:hover::before { opacity: 1; transform: scale(1); }
+.ctrl-btn:active { transform: scale(0.95); }
+.ctrl-btn:disabled { opacity: 0.22; cursor: default; transform: none; box-shadow: none; }
+#counter { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 38px; text-align: center; opacity: 0.6; }
+#timer-display {
+  font-family: var(--mono); font-size: 12px; color: var(--muted);
+  min-width: 44px; text-align: center; cursor: pointer;
+  user-select: none; transition: color 0.2s, opacity 0.2s; opacity: 0.6;
+}
+#timer-display:hover { color: var(--gold); opacity: 1; }
+#timer-display.running { color: var(--gold); opacity: 1; }
+#timer-display.warning { color: #c06060; opacity: 1; }
+
+/* ══════════════════ DOTS ══════════════════ */
+
+#dots {
+  position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; z-index: 50;
+}
+.dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(201,169,110,0.2); cursor: pointer;
+  transition: background 0.35s, transform 0.35s, box-shadow 0.35s;
+}
+.dot:hover { background: rgba(201,169,110,0.5); transform: scale(1.3); }
+.dot.on { background: var(--gold); transform: scale(1.6); animation: dot-pulse 2s ease-in-out infinite; }
+
+/* ══════════════════ PARTICLES ══════════════════ */
+
+.particle {
+  position: absolute; border-radius: 50%;
+  background: var(--gold); pointer-events: none; z-index: 2;
+  animation: particle-rise var(--dur) ease-out forwards;
+}
+
+/* ══════════════════ SPEAKER NOTES ══════════════════ */
+
+#notes-panel {
+  position: absolute; inset: 0;
+  background: rgba(6,5,3,0.96); backdrop-filter: blur(20px);
+  z-index: 200; display: none; flex-direction: column;
+  padding: 52px 68px; overflow-y: auto;
+}
+#notes-panel.open { display: flex; }
+.notes-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 36px; }
+.notes-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 5px; }
+.notes-slide-label { font-family: var(--serif); font-style: italic; font-size: 15px; color: rgba(255,255,255,0.35); }
+.notes-close { background: none; border: 1px solid rgba(255,255,255,0.12); border-radius: 5px; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 12px; padding: 7px 16px; transition: all 0.2s; font-family: var(--mono); letter-spacing: 0.08em; }
+.notes-close:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.8); }
+.notes-content { font-family: var(--serif); font-size: 21px; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.82); max-width: 780px; }
+.notes-content p + p { margin-top: 20px; }
+.notes-hint { margin-top: auto; padding-top: 32px; font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.18); letter-spacing: 0.1em; }
+
+/* ══════════════════ RESPONSIVE ══════════════════ */
+
+@media (max-width: 800px) {
+  #app { grid-template-columns: 1fr; }
+  #sidebar { display: none; }
+  .slide { padding: 36px 26px 76px; }
+  .gap-grid, .two-col, .probe-grid { grid-template-columns: 1fr; }
+  .emi-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="orb1"></div>
+  <div id="orb2"></div>
+  <div id="orb3"></div>
+
+  <!-- ── Sidebar ── -->
+  <div id="sidebar">
+    <div class="sb-meta">
+      <div class="sb-author">Agustín Martínez Caram</div>
+      <div class="sb-label">FORUM+ · April 2026 · Groningen</div>
+    </div>
+    <div class="sb-section">
+      <div class="sb-section-title">Presentation</div>
+      <button class="nav-btn on" data-slide="0"><span class="nav-num">01</span>Starting Point</button>
+      <button class="nav-btn"   data-slide="1"><span class="nav-num">02</span>Core Question</button>
+      <button class="nav-btn"   data-slide="2"><span class="nav-num">03</span>Existing Frameworks</button>
+      <button class="nav-btn"   data-slide="3"><span class="nav-num">04</span>Working Claim</button>
+      <button class="nav-btn"   data-slide="4"><span class="nav-num">05</span>Two Embedded Probes</button>
+      <button class="nav-btn"   data-slide="5"><span class="nav-num">06</span>EMI v0.3</button>
+      <button class="nav-btn"   data-slide="6"><span class="nav-num">07</span>Why This Matters</button>
+      <button class="nav-btn"   data-slide="7"><span class="nav-num">08</span>For Discussion</button>
+    </div>
+    <div class="sb-divider"></div>
+    <div class="sb-footer">
+      <kbd>←</kbd> <kbd>→</kbd> navigate<br>
+      <kbd>N</kbd> speaker notes<br>
+      <kbd>F</kbd> fullscreen<br>
+      <kbd>T</kbd> timer · dbl-click reset<br>
+      <kbd>Esc</kbd> home / close
+    </div>
+  </div>
+
+  <!-- ── Stage ── -->
+  <div id="stage">
+
+    <!-- 0: Starting Point -->
+    <div class="slide on" id="slide-0">
+      <div class="ghost">Why</div>
+      <div class="s-eyebrow">Starting Point</div>
+      <div class="s-rule"></div>
+      <h2 class="disp">Why I'm Working<br>on <em>This</em></h2>
+      <p class="lead">In the past years I have been embedded in different collaborative research ecosystems — most concretely in <em>WP2 of Healthy Living as a Service</em> and through the development of <em>ATMOS_FERA</em> in dialogue with scientific datasets and researchers.</p>
+      <div class="pq">
+        <p>What is the structural role of artistic research inside these kinds of collaborations — beyond producing outputs or communicating results?</p>
+      </div>
+      <p class="sub-note">↳ Starting point of the FORUM+ article in development.</p>
+    </div>
+
+    <!-- 1: Core Question -->
+    <div class="slide" id="slide-1">
+      <div class="ghost">Epistemic</div>
+      <div class="s-eyebrow">Core Question</div>
+      <div class="s-rule"></div>
+      <h2 class="disp">What Does Artistic Research Do —<br><em>Structurally?</em></h2>
+      <p class="lead">Rather than asking whether artistic research is <em>valuable</em>, I want to ask how it contributes structurally to collaborative knowledge-making.</p>
+      <div class="pq">
+        <p>How does artistic research reorganize the epistemic conditions of collaboration inside transdisciplinary environments?</p>
+      </div>
+      <div style="margin-top:12px; max-width:640px;">
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px;opacity:0.55;color:var(--muted2);">By epistemic conditions, I mean</div>
+        <div class="gap-grid" style="gap:0 28px;">
+          <div class="gap-item">How problems are framed</div>
+          <div class="gap-item">What counts as evidence</div>
+          <div class="gap-item">How knowledge is negotiated</div>
+          <div class="gap-item">How authority is distributed</div>
+        </div>
+      </div>
+      <p class="sub-note">↳ This moves beyond output and impact.</p>
+    </div>
+
+    <!-- 2: Existing Frameworks & the Gap -->
+    <div class="slide" id="slide-2">
+      <div class="ghost">Existing</div>
+      <div class="s-eyebrow">Literature & Gap</div>
+      <div class="s-rule"></div>
+      <h2 class="disp">What Already Exists —<br>and <em>What Seems Missing</em></h2>
+      <div class="two-col">
+        <div>
+          <div class="col-label exists">Existing frameworks</div>
+          <div class="prec-item"><span class="prec-tag">S+T+ARTS</span>&nbsp; Multi-dimensional impact assessment across art–science–technology</div>
+          <div class="prec-item"><span class="prec-tag">FRIS · 9 Dim.</span>&nbsp; Qualitative, practitioner-facing evaluation in artistic research</div>
+          <div class="prec-item"><span class="prec-tag">TD literature</span>&nbsp; Problem framing, epistemic authority, knowledge integration</div>
+        </div>
+        <div>
+          <div class="col-label gap">Less developed</div>
+          <div class="prec-item gap-item">A vocabulary for articulating the <em>epistemic</em> contribution of artistic research <em>from within</em> collaboration itself</div>
+          <div class="prec-item gap-item">Tools that help artist-researchers name what they actually do inside transdisciplinary processes — not only after the fact</div>
+        </div>
+      </div>
+      <div class="ref-note">S+T+ARTS · FRIS · 9 Dimensions · IRDF / EVOLvINC · transdisciplinary epistemic integration literature</div>
+    </div>
+
+    <!-- 3: Working Claim -->
+    <div class="slide" id="slide-3">
+      <div class="ghost">Claim</div>
+      <div class="s-eyebrow">Working Claim</div>
+      <div class="s-rule"></div>
+      <h2 class="disp">Provisional<br><em>Argument</em></h2>
+      <div class="pq" style="margin-top:0; margin-bottom:22px;">
+        <p>Artistic research contributes not only through outputs, but by reorganizing how knowledge is framed, experienced, and negotiated within transdisciplinary collaborations.</p>
+      </div>
+      <p class="body">This is not yet a validated framework. It is an argument grounded in embedded practice, now being sharpened through literature review.</p>
+      <p class="sub-note">↳ Grounded in HLaS + ATMOS_FERA as embedded probes, not definitive proof.</p>
+    </div>
+
+    <!-- 4: Two Embedded Probes -->
+    <div class="slide" id="slide-4">
+      <div class="ghost">Probes</div>
+      <div class="s-eyebrow">Cases</div>
+      <div class="s-rule"></div>
+      <h2 class="disp">Two Embedded<br><em>Probes</em></h2>
+      <div class="probe-grid">
+        <div class="probe-card">
+          <div class="probe-title">Healthy Living as a Service — WP2</div>
+          <ul class="probe-body">
+            <li>Consortium / health / institutional applied context</li>
+            <li>Artistic research inside a structured collaborative framework</li>
+            <li>Pressure of deliverables, impact language, coordination logic</li>
+          </ul>
+        </div>
+        <div class="probe-card">
+          <div class="probe-title">ATMOS_FERA</div>
+          <ul class="probe-body">
+            <li>Art–science–technology collaboration</li>
+            <li>Dialogue with scientific datasets and researchers</li>
+            <li>Sensory and experiential transformation of scientific material</li>
+          </ul>
+        </div>
+      </div>
+      <p class="sub-note">↳ Together: two probes into how artistic research operates inside different collaborative knowledge-making environments.</p>
+    </div>
+
+    <!-- 5: EMI v0.3 -->
+    <div class="slide" id="slide-5">
+      <div class="ghost">EMI</div>
+      <div class="s-eyebrow">Analytic Vocabulary</div>
+      <div class="s-rule"></div>
+      <h2 class="disp">EMI v0.3 —<br><em>Working Analytic Vocabulary</em></h2>
+      <p class="body">A practitioner-facing vocabulary for tracing how artistic research contributes from within collaboration — not a universal metric, not a KPI system.</p>
+      <div class="emi-grid">
+        <div class="emi-card">
+          <div class="emi-num">01</div>
+          <div class="emi-label">Problem Reconfiguration</div>
+          <div class="emi-desc">Did the artistic work change how the issue was framed?</div>
+        </div>
+        <div class="emi-card">
+          <div class="emi-num">02</div>
+          <div class="emi-label">Knowledge Integration</div>
+          <div class="emi-desc">What kinds of knowledge were brought into relation?</div>
+        </div>
+        <div class="emi-card">
+          <div class="emi-num">03</div>
+          <div class="emi-label">Epistemic Position & Authority</div>
+          <div class="emi-desc">Did the intervention alter who could define relevance or interpretation?</div>
+        </div>
+        <div class="emi-card">
+          <div class="emi-num">04</div>
+          <div class="emi-label">Experiential Reorientation</div>
+          <div class="emi-desc">Did collaborators come to sense or perceive the issue differently?</div>
+        </div>
+        <div class="emi-card">
+          <div class="emi-num">05</div>
+          <div class="emi-label">Evaluation Friction</div>
+          <div class="emi-desc">Where did existing criteria fail to capture what the work was doing?</div>
+        </div>
+        <div class="emi-card">
+          <div class="emi-num">06</div>
+          <div class="emi-label">Context & Stage Sensitivity</div>
+          <div class="emi-desc">Under what conditions did these contributions become visible?</div>
+        </div>
+      </div>
+      <div class="ref-note">Exploratory — failure points as important as usefulness · artistic research evaluation + transdisciplinary epistemic integration literature</div>
+    </div>
+
+    <!-- 6: Why This Matters -->
+    <div class="slide" id="slide-6">
+      <div class="ghost">Structural</div>
+      <div class="s-eyebrow">Structural Implication</div>
+      <div class="s-rule"></div>
+      <h2 class="disp">Why This Matters<br><em>Structurally</em></h2>
+      <p class="lead">If artistic research is increasingly included in transdisciplinary collaborations, its epistemic contribution needs to be articulated more clearly.</p>
+      <div class="contrib-list">
+        <div class="contrib-item">
+          <span class="contrib-arrow">→</span>
+          <div class="contrib-text">This matters not only for theory, but for <strong>how collaborations are designed from the outset.</strong></div>
+        </div>
+        <div class="contrib-item">
+          <span class="contrib-arrow">→</span>
+          <div class="contrib-text">A clearer vocabulary could support <strong>better positioning of artistic research</strong> in consortium design, collaboration, and evaluation.</div>
+        </div>
+        <div class="contrib-item">
+          <span class="contrib-arrow">→</span>
+          <div class="contrib-text">The article is a <strong>first grounded articulation</strong> of this gap — exploratory, not conclusive.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7: For Discussion -->
+    <div class="slide" id="slide-7">
+      <div class="ghost">?</div>
+      <div class="s-eyebrow">For Discussion</div>
+      <div class="s-rule"></div>
+      <h2 class="disp">Questions I'd Like to<br><em>Put on the Table</em></h2>
+      <div class="q-list">
+        <div class="q-item">
+          <span class="q-num">01</span>
+          <div class="q-text">Does this reflect a real and shared problem in how artistic research is currently positioned inside transdisciplinary collaborations?</div>
+        </div>
+        <div class="q-item">
+          <span class="q-num">02</span>
+          <div class="q-text">Is the distinction between impact evaluation and epistemic articulation a useful one here?</div>
+        </div>
+        <div class="q-item">
+          <span class="q-num">03</span>
+          <div class="q-text">What kinds of collaborative settings would be most valuable for testing and refining something like EMI?</div>
+        </div>
+        <div class="q-item">
+          <span class="q-num">04</span>
+          <div class="q-text">Should this remain a reflective article and exploratory framework, or could it seed a broader comparative research line?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Speaker notes overlay -->
+    <div id="notes-panel">
+      <div class="notes-header">
+        <div>
+          <div class="notes-title">Speaker Notes</div>
+          <div class="notes-slide-label" id="notes-slide-label">Slide 1 / 8</div>
+        </div>
+        <button class="notes-close" onclick="closeNotes()">Close <kbd style="background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.15);color:rgba(255,255,255,0.4)">N</kbd></button>
+      </div>
+      <div class="notes-content" id="notes-content"></div>
+      <div class="notes-hint">Press N to toggle · ← → to navigate · F for fullscreen</div>
+    </div>
+
+    <div id="dots"></div>
+    <div id="nav-ctrl">
+      <div id="timer-display" title="Click to start/stop · double-click to reset">0:00</div>
+      <span id="counter">1 / 8</span>
+      <button class="ctrl-btn" id="btn-prev">←</button>
+      <button class="ctrl-btn" id="btn-next">→</button>
+      <button class="ctrl-btn" id="btn-fs" title="Fullscreen (F)">⛶</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+  const TOTAL = 8;
+  let cur = 0, notesOpen = false;
+
+  const NOTES = [
+    // 0 — Starting Point ~1 min
+    `I'll start from where this work actually comes from — not from theory, but from practice.\n\nIn the past few years I've been embedded in two quite different collaborative research environments. One is WP2 of Healthy Living as a Service — a consortium working in health technology in the north of the Netherlands. The other is ATMOS_FERA, where I worked in close dialogue with scientific datasets and researchers to develop an immersive art-science-technology project.\n\nBoth experiences raised the same structural question for me: what is artistic research actually doing inside these collaborations, beyond producing outputs or communicating results?\n\nThat question is the starting point of the FORUM+ article I'm developing.`,
+
+    // 1 — Core Question ~1 min
+    `The question I want to ask is deliberately not about value. The discussion about whether artistic research is valuable tends to get circular.\n\nWhat I want to ask instead is structural: how does artistic research reorganize the epistemic conditions of collaboration? By that I mean concrete things — how problems get framed, what counts as evidence, how knowledge is negotiated, and how authority gets distributed across a collaboration.\n\nThis is a different register from impact evaluation. It's asking what artistic research changes at the level of how knowledge is produced and shaped, not just what it outputs.`,
+
+    // 2 — Existing Frameworks ~1.5 min
+    `Before I describe what I'm proposing, I want to be clear about what already exists — because I'm not working in a vacuum.\n\nOn the left, you can see three major framework streams. S+T+ARTS offers multi-dimensional impact assessment specifically designed for art-science-technology work. FRIS and 9 Dimensions provide qualitative, practitioner-facing evaluation tools in artistic research contexts. And the transdisciplinary epistemic integration literature — work on EVOLvINC, IRDF, and related frameworks — already addresses problem framing, epistemic authority, and knowledge integration in collaborative research.\n\nThese frameworks are rich and serious. The gap I'm pointing to is not that they don't exist — it's that they are less equipped to help artist-researchers articulate their epistemic contribution from within the collaboration itself. That practitioner-facing, process-level vocabulary is what seems less developed.`,
+
+    // 3 — Working Claim ~1 min
+    `The claim I'm developing is this: artistic research contributes not only through the outputs it produces, but by reorganizing how knowledge is framed, experienced, and negotiated within transdisciplinary collaborations.\n\nI want to be precise about what this is and isn't. It is an argument grounded in embedded practice, now being sharpened through literature review. It is not a validated empirical framework. It is not a methodology paper about AT-LABS. It is not a celebration of interdisciplinarity.\n\nI'm using HLaS and ATMOS_FERA as embedded probes — not as definitive proof, but as the material through which the argument takes shape.`,
+
+    // 4 — Two Embedded Probes ~1.5 min
+    `Let me say a word about why these two cases belong together analytically, even though they're quite different.\n\nHLaS is a structured consortium in the health sector — with deliverables, timelines, coordination logic, and impact language. Artistic research there was operating inside a framework that had its own institutional pressures and expectations.\n\nATMOS_FERA is a different kind of collaboration — art-science-technology, working with scientific datasets, focused on sensory and experiential transformation of scientific material. Much more open in form, but equally collaborative in practice.\n\nWhat they share is that in both, I was embedded — not as an illustrator, not as a communicator, but as someone making epistemic decisions. And in both, the question of how to articulate that contribution came up again and again. That's why they work as two probes rather than one case study.`,
+
+    // 5 — EMI v0.3 ~1.5 min
+    `Based on this work, I've been developing what I'm calling EMI — Epistemic Mediation Indicators — now at version 0.3.\n\nThe name matters less than what it is: a practitioner-facing analytic vocabulary. Not a metric, not a KPI system, not a finished model. A set of dimensions for tracing how artistic research contributes from within a collaboration.\n\nThe six dimensions are: Problem Reconfiguration, Knowledge Integration, Epistemic Position and Authority, Experiential Reorientation, Evaluation Friction, and Context and Stage Sensitivity.\n\nEach one is a lens, not a score. I want to stress that the failure points — where these dimensions don't hold, where they're contested or incomplete — are just as important as where they work. That's built into how I'm using them.`,
+
+    // 6 — Why This Matters ~1 min
+    `The structural implication I want to leave you with is this.\n\nIf artistic research is increasingly included in transdisciplinary collaborations — and I think it is — then its epistemic contribution needs to be articulable, not just intuited or celebrated.\n\nThis matters for how collaborations are designed from the outset: who is invited in, under what terms, and with what expectations. A clearer vocabulary could help artistic researchers position themselves more precisely — and help consortium designers make better use of what artistic research actually offers.\n\nThe article is a first grounded articulation of this. It's exploratory, not conclusive — and it's not claiming to solve the problem.`,
+
+    // 7 — For Discussion ~1.5 min
+    `I want to close by putting four questions on the table — questions that I think are genuinely open and that I'd value this group's perspective on.\n\nFirst: does this reflect a real and shared problem? I'm curious whether others in this room experience the same difficulty in articulating what artistic research does inside collaborations — not as a personal problem, but as a structural one.\n\nSecond: is the distinction between impact evaluation and epistemic articulation useful? I think there's something important in separating these two registers, but I'm not certain the distinction holds everywhere.\n\nThird: what kinds of settings would be most valuable for testing something like EMI? I have my two cases, but I'm aware they have a particular character. Where else might this vocabulary be stress-tested?\n\nAnd fourth: should this remain a reflective article and exploratory framework, or does it have the basis for something broader? I'm genuinely asking — I don't want to overstate what I have.`
+  ];
+
+  const slides  = Array.from({ length: TOTAL }, (_, i) => document.getElementById('slide-' + i));
+  const navBtns = Array.from(document.querySelectorAll('.nav-btn'));
+  const dotsEl  = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const btnFs   = document.getElementById('btn-fs');
+  const notesPanel   = document.getElementById('notes-panel');
+  const notesContent = document.getElementById('notes-content');
+  const notesLabel   = document.getElementById('notes-slide-label');
+
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  }
+  const dots = Array.from(dotsEl.querySelectorAll('.dot'));
+
+  function goTo(n) {
+    n = Math.max(0, Math.min(TOTAL - 1, n));
+    if (n === cur) return;
+    const leaving = cur;
+    slides[leaving].classList.remove('on');
+    slides[leaving].classList.add('out');
+    navBtns[leaving].classList.remove('on');
+    dots[leaving].classList.remove('on');
+    setTimeout(() => slides[leaving].classList.remove('out'), 520);
+    cur = n;
+    slides[cur].classList.add('on');
+    navBtns[cur].classList.add('on');
+    dots[cur].classList.add('on');
+    counter.textContent = (cur + 1) + ' / ' + TOTAL;
+    btnPrev.disabled = cur === 0;
+    btnNext.disabled = cur === TOTAL - 1;
+    if (notesOpen) updateNotes();
+    spawnParticles();
+  }
+
+  function spawnParticles() {
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 3 + 1.5;
+        const x = 240 + Math.random() * (window.innerWidth - 240);
+        const y = Math.random() * window.innerHeight;
+        const dur = (Math.random() * 1.5 + 1.2) + 's';
+        const px = (Math.random() - 0.5) * 40 + 'px';
+        p.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px;opacity:0;--dur:${dur};--px:${px};filter:blur(0.5px);`;
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), parseFloat(dur) * 1000 + 100);
+      }, i * 60);
+    }
+  }
+
+  function updateNotes() {
+    notesLabel.textContent = 'Slide ' + (cur + 1) + ' / ' + TOTAL;
+    notesContent.innerHTML = NOTES[cur].split('\n\n').map(p => '<p>' + p + '</p>').join('');
+  }
+
+  function openNotes()  { notesOpen = true;  updateNotes(); notesPanel.classList.add('open'); }
+  function closeNotes() { notesOpen = false; notesPanel.classList.remove('open'); }
+  window.closeNotes = closeNotes;
+
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+      btnFs.textContent = '✕';
+    } else {
+      document.exitFullscreen();
+      btnFs.textContent = '⛶';
+    }
+  }
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) btnFs.textContent = '⛶';
+  });
+
+  const timerEl = document.getElementById('timer-display');
+  let timerSecs = 0, timerRunning = false, timerInterval = null;
+  function formatTime(s) { return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+  function toggleTimer() {
+    if (timerRunning) {
+      clearInterval(timerInterval); timerRunning = false;
+      timerEl.classList.remove('running', 'warning');
+    } else {
+      timerRunning = true; timerEl.classList.add('running');
+      timerInterval = setInterval(() => {
+        timerSecs++;
+        timerEl.textContent = formatTime(timerSecs);
+        if (timerSecs >= 13 * 60) timerEl.classList.add('warning');
+      }, 1000);
+    }
+  }
+  function resetTimer() {
+    clearInterval(timerInterval); timerRunning = false; timerSecs = 0;
+    timerEl.textContent = '0:00'; timerEl.classList.remove('running', 'warning');
+  }
+  timerEl.addEventListener('click', toggleTimer);
+  timerEl.addEventListener('dblclick', e => { e.preventDefault(); resetTimer(); });
+
+  btnPrev.addEventListener('click', () => goTo(cur - 1));
+  btnNext.addEventListener('click', () => goTo(cur + 1));
+  btnFs.addEventListener('click', toggleFullscreen);
+  navBtns.forEach((b, i) => b.addEventListener('click', () => goTo(i)));
+
+  document.addEventListener('keydown', e => {
+    if (notesOpen && e.key === 'Escape') { closeNotes(); return; }
+    if (e.key === 'Escape') { goTo(0); return; }
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(cur + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(cur - 1); }
+    if (e.key === 'n' || e.key === 'N') { notesOpen ? closeNotes() : openNotes(); }
+    if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+    if (e.key === 't' || e.key === 'T') toggleTimer();
+    if (e.key >= '1' && e.key <= '9') goTo(parseInt(e.key) - 1);
+  });
+
+  btnPrev.disabled = true;
+  counter.textContent = '1 / ' + TOTAL;
+})();
+</script>
+</body>
+</html>
