@@ -1,77 +1,261 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Literature Map</title><style>
-:root{
-  --bg:#0c0b09;
-  --surface:#141210;
-  --surface2:#191612;
-  --border:rgba(201,169,110,0.18);
-  --border2:rgba(255,255,255,0.08);
-  --gold:#c9a96e;
-  --goldlt:#e8cfa0;
-  --cream:#f0ead8;
-  --muted:#9d927f;
-  --muted2:#756c5c;
-  --accent:#7a9e8e;
-  --red:#b97070;
-  --serif:'Georgia', 'Times New Roman', serif;
-  --mono:'Menlo','Consolas',monospace;
-}
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--cream);font-family:var(--serif);}
-body{line-height:1.65}
-.page{max-width:1100px;margin:0 auto;padding:42px 38px 68px;position:relative;}
-header{margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border);}
-.eyebrow{font-family:var(--mono);color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:11px;opacity:.8;margin-bottom:10px;}
-h1{margin:0 0 12px;font-weight:400;font-size:46px;line-height:1.08;}
-h1 em,h2 em{font-style:italic;color:var(--goldlt)}
-.lead{max-width:760px;color:rgba(240,234,216,.82);font-size:20px;}
-nav.top{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
-nav.top a{color:var(--gold);text-decoration:none;border:1px solid var(--border);padding:7px 11px;border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;}
-section{margin-top:34px;padding-top:8px;}
-h2{font-size:28px;font-weight:400;margin:0 0 12px;}
-h3{font-size:19px;font-weight:500;margin:0 0 10px;color:var(--goldlt);}
-p, li{font-size:17px;color:rgba(240,234,216,.82)}
-.small{font-size:13px;color:var(--muted)}
-.note{border-left:2px solid var(--gold);padding:10px 16px;background:rgba(201,169,110,.05);max-width:860px;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Literature Map — EMI Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0b09;--surface:rgba(255,255,255,0.025);--border:rgba(201,169,110,0.14);--border2:rgba(255,255,255,0.06);--gold:#c9a96e;--goldlt:#e8cfa0;--cream:#f0ead8;--muted:#6b6456;--muted2:#8a7e70;--accent:#7a9e8e;--serif:'Cormorant Garamond',Georgia,serif;--mono:'DM Mono',monospace;--ease:cubic-bezier(0.16,1,0.3,1);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--cream);font-family:var(--serif);line-height:1.7;min-height:100vh;overflow-x:hidden;}
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0;will-change:transform;}
+.orb1{width:70vw;height:60vh;top:-20%;left:-15%;background:radial-gradient(ellipse,rgba(201,169,110,0.06) 0%,transparent 70%);animation:orb1 20s ease-in-out infinite;}
+.orb2{width:55vw;height:65vh;bottom:-20%;right:-10%;background:radial-gradient(ellipse,rgba(122,158,142,0.05) 0%,transparent 70%);animation:orb2 26s ease-in-out infinite;}
+@keyframes orb1{0%,100%{transform:translate(0,0) scale(1);opacity:1;}40%{transform:translate(5%,4%) scale(1.1);opacity:0.8;}70%{transform:translate(-3%,6%) scale(0.92);}}
+@keyframes orb2{0%,100%{transform:translate(0,0) scale(1);}35%{transform:translate(-5%,-4%) scale(1.12);}65%{transform:translate(4%,-3%) scale(0.96);}}
+@keyframes shimmer{from{transform:translateX(-100%) skewX(-12deg);}to{transform:translateX(260%) skewX(-12deg);}}
+@keyframes pulse-border{0%,100%{border-color:rgba(201,169,110,0.14);}50%{border-color:rgba(201,169,110,0.32);}}
+@keyframes fade-up{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(12,11,9,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 44px;display:flex;align-items:center;gap:0;height:52px;}
+.topbar-back{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;color:var(--muted);text-decoration:none;text-transform:uppercase;margin-right:22px;padding-right:22px;border-right:1px solid var(--border);transition:color 0.25s;white-space:nowrap;}
+.topbar-back:hover{color:var(--gold);}
+.topbar-nav{display:flex;gap:4px;}
+.topbar-nav a{font-family:var(--mono);font-size:10px;letter-spacing:0.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:6px 12px;border-radius:4px;transition:background 0.2s,color 0.2s;white-space:nowrap;}
+.topbar-nav a:hover{background:rgba(201,169,110,0.08);color:var(--goldlt);}
+.topbar-nav a.active{background:rgba(201,169,110,0.1);color:var(--gold);}
+.topbar-page{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted);opacity:0.45;letter-spacing:0.12em;}
+
+/* Page */
+.page{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:0 44px 100px;}
+.doc-header{padding:64px 0 48px;border-bottom:1px solid var(--border);margin-bottom:0;position:relative;overflow:hidden;}
+.doc-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.35;}
+.eyebrow{font-family:var(--mono);font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:16px;}
+.doc-title{font-family:var(--serif);font-size:clamp(42px,5.5vw,72px);font-weight:300;line-height:1.05;letter-spacing:-0.01em;color:var(--cream);margin-bottom:20px;}
+.doc-title em{font-style:italic;color:var(--goldlt);}
+.doc-lead{font-family:var(--serif);font-size:clamp(17px,1.8vw,21px);font-weight:300;line-height:1.65;color:rgba(240,234,216,0.72);max-width:720px;}
+
+section{margin-top:56px;opacity:0;transform:translateY(20px);transition:opacity 0.65s var(--ease),transform 0.65s var(--ease);}
+section.visible{opacity:1;transform:translateY(0);}
+.section-label{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.section-num{font-family:var(--mono);font-size:10px;letter-spacing:0.18em;color:var(--gold);opacity:0.5;flex-shrink:0;}
+.section-rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(201,169,110,0.25),transparent);}
+.section-title{font-family:var(--serif);font-size:clamp(22px,2.4vw,32px);font-weight:300;color:var(--cream);margin-bottom:16px;}
+.section-title em{color:var(--goldlt);font-style:italic;}
+
+p,li{font-family:var(--serif);font-size:clamp(15px,1.5vw,17.5px);font-weight:300;line-height:1.75;color:rgba(240,234,216,0.78);}
+p+p{margin-top:12px;}
+strong{font-weight:600;color:var(--cream);}
+em{font-style:italic;color:var(--goldlt);}
+
+.callout{border-left:1px solid var(--gold);padding:14px 22px;margin:22px 0;background:rgba(201,169,110,0.04);max-width:820px;animation:pulse-border 5s ease-in-out infinite;position:relative;overflow:hidden;transition:background 0.3s;}
+.callout:hover{background:rgba(201,169,110,0.07);}
+.callout::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.06),transparent);transform:skewX(-12deg);}
+.callout:hover::before{animation:shimmer 0.9s ease forwards;}
+.callout p{font-size:clamp(16px,1.6vw,19px);}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
-.card{background:linear-gradient(180deg,rgba(201,169,110,.05),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:14px;padding:18px 18px 16px;}
-.card h3{margin-bottom:8px;font-size:18px}
-.card p,.card li{font-size:15px}
-.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.02);}
-table{width:100%;border-collapse:collapse;min-width:880px;}
-th,td{padding:14px 14px;vertical-align:top;border-bottom:1px solid var(--border2);}
-th{text-align:left;font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;background:rgba(201,169,110,.04);}
-td{font-size:15px;color:rgba(240,234,216,.8);}
-tr:last-child td{border-bottom:none}
-.badge{display:inline-block;padding:3px 8px;border:1px solid var(--border);border-radius:999px;color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.06em;margin-right:8px;}
-ul.tight{padding-left:18px;margin:8px 0}
-ul.tight li{margin:6px 0}
-.muted{color:var(--muted)}
-.footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted2);font-family:var(--mono);font-size:11px;letter-spacing:.04em;}
-.printhint{font-family:var(--mono);font-size:11px;color:var(--muted);}
-.callout{padding:14px 16px;border-radius:14px;border:1px solid var(--border);background:rgba(122,158,142,.08);}
-.checkgrid{display:grid;grid-template-columns:240px 1fr 1fr 1fr 120px 1fr;gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden;}
-.checkgrid > div{padding:12px 12px;border-right:1px solid var(--border2);border-bottom:1px solid var(--border2);min-height:64px;font-size:14px;}
-.checkgrid > div:nth-child(6n){border-right:none}
-.checkgrid .head{font-family:var(--mono);font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;background:rgba(201,169,110,.04);font-weight:600;}
-.checkgrid .dim{font-weight:600;color:var(--cream)}
-.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
-.mini{background:rgba(201,169,110,.04);border:1px solid var(--border);border-radius:16px;padding:16px;}
-.mini .n{font-family:var(--mono);color:var(--gold);font-size:11px;letter-spacing:.08em;margin-bottom:8px;}
-.compare{display:grid;grid-template-columns:220px 1fr 1fr;border:1px solid var(--border);border-radius:16px;overflow:hidden;}
-.compare > div{padding:12px 12px;border-right:1px solid var(--border2);border-bottom:1px solid var(--border2);font-size:14px;}
-.compare > div:nth-child(3n){border-right:none}
-.compare .head{background:rgba(201,169,110,.04);font-family:var(--mono);font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;}
-.casebox{border:1px solid var(--border);border-radius:18px;padding:18px;background:rgba(255,255,255,.02);}
-textarea.mock{width:100%;min-height:140px;background:rgba(12,11,9,.9);border:1px dashed rgba(201,169,110,.28);color:rgba(240,234,216,.86);padding:12px;border-radius:12px;font-family:var(--serif);font-size:15px;}
-@media(max-width:900px){.grid2,.grid3,.cards{grid-template-columns:1fr}}
-@media print{body{background:#fff;color:#111}.page{max-width:none;padding:16mm}nav.top{display:none}.card,.mini,.casebox,.table-wrap{break-inside:avoid}}
-</style></head><body><div class="page"><header><div class="eyebrow">EMI dossier / page 01</div><h1>Literature Map</h1><p class="lead">A structured map of the framework traditions surrounding EMI: what already exists, what each tradition evaluates well, and where the specific gap addressed here begins.</p><nav class="top"><a href="literature_map.html">Literature Map</a><a href="emi_operational_checklist.html">EMI Checklist</a><a href="comparative_matrix.html">Comparative Matrix</a></nav></header>
-<section><div class="note">This page translates the two literature syntheses into a working map for the project. Its purpose is not to replace direct reading of primary sources, but to clarify <em>which framework traditions already exist</em>, what they help with, and where EMI can enter without overclaiming novelty.</div></section>
-<section><h2>1. Main deduction</h2><p>The literature does <strong>not</strong> suggest that there is no evaluative language for artistic research or transdisciplinary collaboration. Instead, it shows two partially connected traditions:</p><div class="grid2"><div class="card"><h3>Artistic research evaluation</h3><ul class="tight"><li>quality, impact, contextuality</li><li>process reflexivity</li><li>transformation and non-propositional knowledge</li><li>practitioner-facing and qualitative tools</li></ul></div><div class="card"><h3>Transdisciplinary epistemic integration</h3><ul class="tight"><li>problem framing</li><li>knowledge integration across knowledge types</li><li>authority / representation / power</li><li>context- and stage-sensitive assessment</li></ul></div></div><p class="small">EMI becomes plausible precisely at the intersection of these two traditions.</p></section>
-<section><h2>2. Framework matrix</h2><div class="table-wrap"><table><thead><tr><th>Framework / stream</th><th>Domain</th><th>What it evaluates well</th><th>Strength for this project</th><th>Limitation for EMI question</th></tr></thead><tbody><tr><td><strong>S+T+ARTS</strong></td><td>EU art–science–technology programmes</td><td>Multi-dimensional impact across social, economic, technological, political, and environmental domains</td><td>Strong precedent for flexible, mixed, ecosystem-facing evaluation in hybrid collaborations</td><td>More impact-oriented than process-epistemic; does not by itself tell artist-researchers how to articulate their role from within collaboration</td></tr><tr><td><strong>FRIS</strong></td><td>Artistic research</td><td>Field-specific quality, impact, and contextuality</td><td>Good for defending qualitative, practitioner-shaped criteria</td><td>Less focused on collaborative epistemic restructuring inside transdisciplinary teams</td></tr><tr><td><strong>9 Dimensions</strong></td><td>Artistic research / transformation</td><td>Processual and transformative dimensions of artistic research</td><td>Supports non-linear, qualitative, reflective assessment</td><td>Not designed specifically around role articulation in collaborative research settings</td></tr><tr><td><strong>IRDF / related authority-sensitive tools</strong></td><td>Transdisciplinary collaboration</td><td>Authority, representation, inclusion, power, integration</td><td>Very useful for the “epistemic position & authority” dimension</td><td>Less attentive to experiential or artistic modes of knowing</td></tr><tr><td><strong>EVOLvINC / TD process tools</strong></td><td>Transdisciplinary process evaluation</td><td>Context- and stage-sensitive evaluation of integration processes</td><td>Supports the claim that no one-size-fits-all metric will work</td><td>Still broader and more managerial than the artist-researcher positioning problem</td></tr><tr><td><strong>Broader TD epistemic integration literature</strong></td><td>Inter- and transdisciplinary research</td><td>Problem framing, knowledge integration, stakeholder balance, process reflection</td><td>Gives strong conceptual grounding for EMI’s collaborative side</td><td>Usually does not center artistic research as a specific epistemic mode</td></tr></tbody></table></div></section>
-<section><h2>3. What this means for EMI</h2><div class="grid3"><div class="card"><h3>What EMI should <em>not</em> be</h3><ul class="tight"><li>a universal metric</li><li>a KPI dashboard</li><li>a proof-machine for the usefulness of art</li><li>a replacement for case-sensitive judgement</li></ul></div><div class="card"><h3>What EMI can be</h3><ul class="tight"><li>a practitioner-facing analytic vocabulary</li><li>a reflective tool usable before, during, and after collaboration</li><li>a bridge between artistic research evaluation and TD epistemic integration</li><li>a way to name frictions and blind spots</li></ul></div><div class="card"><h3>What remains open</h3><ul class="tight"><li>Does EMI help in practice?</li><li>Which settings are best for testing it?</li><li>How much does it need co-design with other stakeholders?</li><li>Where does it fail or overreach?</li></ul></div></div></section>
-<section><h2>4. Working gap statement</h2><div class="callout">Existing frameworks can assess <strong>impact</strong>, <strong>quality</strong>, <strong>collaboration</strong>, and <strong>knowledge integration</strong>. What seems less developed is a vocabulary that helps artist-researchers articulate their <strong>epistemic contribution from within collaboration itself</strong>.</div></section>
-<section><h2>5. Immediate implications for the FORUM+ article</h2><ul class="tight"><li>The article should not claim that “nothing exists.” It should claim that <strong>the existing traditions do not quite solve the practitioner-facing articulation problem</strong>.</li><li>The article should frame EMI as <strong>exploratory, qualitative, and context-sensitive</strong>.</li><li>The article can legitimately use HLaS and ATMOS_FERA as <strong>two probes</strong> that expose the need for something like EMI, even if they do not validate it.</li><li>The paper’s strongest niche is not impact reporting, but <strong>role articulation, epistemic contribution, and collaborative positioning</strong>.</li></ul></section>
-<section><h2>6. Core sources to read directly next</h2><p class="muted">Use the syntheses to guide direct reading, not as the final scholarly layer.</p><div class="grid2"><div class="card"><h3>Primary theoretical anchors</h3><ul class="tight"><li>S+T+ARTS evaluation / “Closing the Loop” materials</li><li>FRIS framework documents</li><li>9 Dimensions tool / related publications</li></ul></div><div class="card"><h3>Transdisciplinary anchors</h3><ul class="tight"><li>IRDF / authority-sensitive integration tools</li><li>EVOLvINC / process-sensitive evaluation tools</li><li>Core work on epistemic integration and knowledge reconfiguration</li></ul></div></div></section>
-<div class="footer">EMI dossier pages · working materials for April meeting / FORUM+ development · developed from the project memo and literature syntheses</div></div></body></html>
+
+.card{background:rgba(201,169,110,0.03);border:1px solid var(--border);border-radius:12px;padding:22px 20px;position:relative;overflow:hidden;transition:background 0.35s,border-color 0.35s,transform 0.35s var(--ease),box-shadow 0.35s;cursor:default;}
+.card:hover{background:rgba(201,169,110,0.07);border-color:rgba(201,169,110,0.28);transform:translateY(-3px);box-shadow:0 12px 32px -8px rgba(201,169,110,0.12),0 4px 12px -4px rgba(0,0,0,0.35);}
+.card::before{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(201,169,110,0.07),transparent);transform:skewX(-12deg);pointer-events:none;}
+.card:hover::before{animation:shimmer 0.75s ease forwards;}
+.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.35s;}
+.card:hover::after{opacity:0.5;}
+.card h3{font-family:var(--serif);font-size:clamp(16px,1.5vw,19px);font-weight:400;color:var(--goldlt);margin-bottom:12px;line-height:1.25;}
+.card p,.card li{font-size:clamp(14px,1.3vw,16px);line-height:1.65;color:rgba(240,234,216,0.7);}
+
+/* Big framework table */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px;background:rgba(255,255,255,0.015);margin-top:16px;}
+table{width:100%;border-collapse:collapse;min-width:780px;}
+thead tr{background:rgba(201,169,110,0.05);border-bottom:1px solid rgba(201,169,110,0.18);}
+th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);padding:14px 16px;font-weight:400;}
+td{font-family:var(--serif);font-size:clamp(13px,1.2vw,15px);font-weight:300;line-height:1.6;color:rgba(240,234,216,0.76);padding:13px 16px;vertical-align:top;border-bottom:1px solid var(--border2);}
+tr:last-child td{border-bottom:none;}
+tbody tr{transition:background 0.22s;}
+tbody tr:hover{background:rgba(201,169,110,0.04);}
+td strong{color:var(--cream);}
+
+ul.tight,ol.tight{padding-left:0;margin:12px 0;list-style:none;}
+ul.tight li{font-size:clamp(14px,1.35vw,16.5px);font-family:var(--serif);font-weight:300;color:rgba(240,234,216,0.76);padding:7px 0 7px 22px;border-bottom:1px solid var(--border2);position:relative;line-height:1.6;transition:color 0.2s,padding-left 0.2s;}
+ul.tight li:last-child{border-bottom:none;}
+ul.tight li::before{content:'—';position:absolute;left:0;top:8px;color:var(--gold);opacity:0.4;font-size:10px;}
+ul.tight li:hover{color:var(--cream);padding-left:28px;}
+
+/* What EMI is/isn't  */
+.gap-callout{padding:18px 22px;border-radius:12px;border:1px solid rgba(122,158,142,0.25);background:rgba(122,158,142,0.06);margin-top:4px;}
+.gap-callout p{color:rgba(240,234,216,0.84);}
+
+.footer{margin-top:72px;padding-top:22px;border-top:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.08em;opacity:0.5;display:flex;justify-content:space-between;align-items:center;}
+
+@media(max-width:860px){.page{padding:0 24px 80px;}.topbar{padding:0 24px;}.grid2,.grid3{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav class="topbar">
+  <a href="index.html" class="topbar-back">← Presentation</a>
+  <div class="topbar-nav">
+    <a href="literature_map.html" class="active">Literature Map</a>
+    <a href="emi_operational_checklist.html">EMI Checklist</a>
+    <a href="comparative_matrix.html">Case Matrix</a>
+  </div>
+  <span class="topbar-page">Dossier 01 / 03</span>
+</nav>
+
+<div class="page">
+  <header class="doc-header">
+    <div class="eyebrow">EMI Dossier · Page 01</div>
+    <h1 class="doc-title">Literature <em>Map</em></h1>
+    <p class="doc-lead">A structured map of the framework traditions surrounding EMI — what already exists, what each tradition evaluates well, and where the specific gap addressed here begins.</p>
+  </header>
+
+  <section>
+    <div class="section-label"><span class="section-num">01</span><div class="section-rule"></div></div>
+    <h2 class="section-title">Main deduction</h2>
+    <div class="callout"><p>The literature does <strong>not</strong> suggest there is no evaluative language for artistic research or transdisciplinary collaboration. It shows two partially connected traditions — and EMI becomes plausible at their intersection.</p></div>
+    <div class="grid2" style="margin-top:20px;">
+      <div class="card">
+        <h3>Artistic research evaluation</h3>
+        <ul class="tight">
+          <li>quality, impact, contextuality</li>
+          <li>process reflexivity</li>
+          <li>transformation and non-propositional knowledge</li>
+          <li>practitioner-facing and qualitative tools</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Transdisciplinary epistemic integration</h3>
+        <ul class="tight">
+          <li>problem framing</li>
+          <li>knowledge integration across knowledge types</li>
+          <li>authority / representation / power</li>
+          <li>context- and stage-sensitive assessment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label"><span class="section-num">02</span><div class="section-rule"></div></div>
+    <h2 class="section-title">Framework <em>matrix</em></h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Framework</th>
+            <th>Domain</th>
+            <th>What it evaluates well</th>
+            <th>Strength for this project</th>
+            <th>Limitation for EMI question</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>S+T+ARTS</strong></td><td>EU art–science–technology</td><td>Multi-dimensional impact across social, economic, technological, political, and environmental domains</td><td>Flexible, mixed, ecosystem-facing evaluation in hybrid collaborations</td><td>More impact-oriented than process-epistemic; does not tell artist-researchers how to articulate their role from within</td></tr>
+          <tr><td><strong>FRIS</strong></td><td>Artistic research</td><td>Field-specific quality, impact, and contextuality</td><td>Defends qualitative, practitioner-shaped criteria</td><td>Less focused on collaborative epistemic restructuring inside transdisciplinary teams</td></tr>
+          <tr><td><strong>9 Dimensions</strong></td><td>Artistic research / transformation</td><td>Processual and transformative dimensions</td><td>Supports non-linear, qualitative, reflective assessment</td><td>Not designed around role articulation in collaborative settings</td></tr>
+          <tr><td><strong>IRDF / authority tools</strong></td><td>Transdisciplinary collaboration</td><td>Authority, representation, inclusion, power, integration</td><td>Very useful for Epistemic Position & Authority dimension</td><td>Less attentive to experiential or artistic modes of knowing</td></tr>
+          <tr><td><strong>EVOLvINC / TD process</strong></td><td>TD process evaluation</td><td>Context- and stage-sensitive integration</td><td>Supports the claim that no one-size-fits-all metric works</td><td>Still broader and more managerial than the artist-researcher positioning problem</td></tr>
+          <tr><td><strong>TD epistemic integration lit.</strong></td><td>Inter- and transdisciplinary research</td><td>Problem framing, knowledge integration, stakeholder balance</td><td>Strong conceptual grounding for EMI's collaborative side</td><td>Does not center artistic research as a specific epistemic mode</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label"><span class="section-num">03</span><div class="section-rule"></div></div>
+    <h2 class="section-title">What this means for <em>EMI</em></h2>
+    <div class="grid3">
+      <div class="card">
+        <h3>What EMI should not be</h3>
+        <ul class="tight">
+          <li>a universal metric</li>
+          <li>a proof-machine for the usefulness of art</li>
+          <li>a replacement for case-sensitive judgement</li>
+          <li>a finished model</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What EMI can be</h3>
+        <ul class="tight">
+          <li>a practitioner-facing analytic vocabulary</li>
+          <li>a reflective tool usable before, during, and after collaboration</li>
+          <li>a bridge between two framework traditions</li>
+          <li>a way to name frictions and blind spots</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What remains open</h3>
+        <ul class="tight">
+          <li>Does EMI help in practice?</li>
+          <li>Which settings are best for testing it?</li>
+          <li>How much co-design does it require?</li>
+          <li>Where does it fail or overreach?</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label"><span class="section-num">04</span><div class="section-rule"></div></div>
+    <h2 class="section-title">Working <em>gap statement</em></h2>
+    <div class="gap-callout">
+      <p>Existing frameworks can assess <strong>impact</strong>, <strong>quality</strong>, <strong>collaboration</strong>, and <strong>knowledge integration</strong>. What seems less developed is a vocabulary that helps artist-researchers articulate their <strong>epistemic contribution from within collaboration itself</strong> — not after the fact, but as part of the process.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label"><span class="section-num">05</span><div class="section-rule"></div></div>
+    <h2 class="section-title">Implications for the <em>FORUM+ article</em></h2>
+    <ul class="tight">
+      <li>The article should not claim "nothing exists." It should claim that <strong>the existing traditions do not solve the practitioner-facing articulation problem</strong>.</li>
+      <li>The article should frame EMI as <strong>exploratory, qualitative, and context-sensitive</strong>.</li>
+      <li>HLaS and ATMOS_FERA function as <strong>two probes</strong> that expose the need for something like EMI — not as validation.</li>
+      <li>The paper's niche: <strong>role articulation, epistemic contribution, and collaborative positioning</strong> — not impact reporting.</li>
+    </ul>
+  </section>
+
+  <section>
+    <div class="section-label"><span class="section-num">06</span><div class="section-rule"></div></div>
+    <h2 class="section-title">Core sources to <em>read directly</em></h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Artistic research anchors</h3>
+        <ul class="tight">
+          <li>S+T+ARTS evaluation / "Closing the Loop" materials</li>
+          <li>FRIS framework documents</li>
+          <li>9 Dimensions tool and related publications</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Transdisciplinary anchors</h3>
+        <ul class="tight">
+          <li>IRDF / authority-sensitive integration tools</li>
+          <li>EVOLvINC / process-sensitive evaluation tools</li>
+          <li>Core work on epistemic integration and knowledge reconfiguration</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>EMI Dossier · Literature Map · working materials for April meeting / FORUM+ development</span>
+    <span>01 / 03</span>
+  </footer>
+</div>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
