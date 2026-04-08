@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Comparative Matrix</title><style>
+:root{
+  --bg:#0c0b09;
+  --surface:#141210;
+  --surface2:#191612;
+  --border:rgba(201,169,110,0.18);
+  --border2:rgba(255,255,255,0.08);
+  --gold:#c9a96e;
+  --goldlt:#e8cfa0;
+  --cream:#f0ead8;
+  --muted:#9d927f;
+  --muted2:#756c5c;
+  --accent:#7a9e8e;
+  --red:#b97070;
+  --serif:'Georgia', 'Times New Roman', serif;
+  --mono:'Menlo','Consolas',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--cream);font-family:var(--serif);}
+body{line-height:1.65}
+.page{max-width:1100px;margin:0 auto;padding:42px 38px 68px;position:relative;}
+header{margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.eyebrow{font-family:var(--mono);color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:11px;opacity:.8;margin-bottom:10px;}
+h1{margin:0 0 12px;font-weight:400;font-size:46px;line-height:1.08;}
+h1 em,h2 em{font-style:italic;color:var(--goldlt)}
+.lead{max-width:760px;color:rgba(240,234,216,.82);font-size:20px;}
+nav.top{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
+nav.top a{color:var(--gold);text-decoration:none;border:1px solid var(--border);padding:7px 11px;border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;}
+section{margin-top:34px;padding-top:8px;}
+h2{font-size:28px;font-weight:400;margin:0 0 12px;}
+h3{font-size:19px;font-weight:500;margin:0 0 10px;color:var(--goldlt);}
+p, li{font-size:17px;color:rgba(240,234,216,.82)}
+.small{font-size:13px;color:var(--muted)}
+.note{border-left:2px solid var(--gold);padding:10px 16px;background:rgba(201,169,110,.05);max-width:860px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.card{background:linear-gradient(180deg,rgba(201,169,110,.05),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:14px;padding:18px 18px 16px;}
+.card h3{margin-bottom:8px;font-size:18px}
+.card p,.card li{font-size:15px}
+.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.02);}
+table{width:100%;border-collapse:collapse;min-width:880px;}
+th,td{padding:14px 14px;vertical-align:top;border-bottom:1px solid var(--border2);}
+th{text-align:left;font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;background:rgba(201,169,110,.04);}
+td{font-size:15px;color:rgba(240,234,216,.8);}
+tr:last-child td{border-bottom:none}
+.badge{display:inline-block;padding:3px 8px;border:1px solid var(--border);border-radius:999px;color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.06em;margin-right:8px;}
+ul.tight{padding-left:18px;margin:8px 0}
+ul.tight li{margin:6px 0}
+.muted{color:var(--muted)}
+.footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted2);font-family:var(--mono);font-size:11px;letter-spacing:.04em;}
+.printhint{font-family:var(--mono);font-size:11px;color:var(--muted);}
+.callout{padding:14px 16px;border-radius:14px;border:1px solid var(--border);background:rgba(122,158,142,.08);}
+.checkgrid{display:grid;grid-template-columns:240px 1fr 1fr 1fr 120px 1fr;gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.checkgrid > div{padding:12px 12px;border-right:1px solid var(--border2);border-bottom:1px solid var(--border2);min-height:64px;font-size:14px;}
+.checkgrid > div:nth-child(6n){border-right:none}
+.checkgrid .head{font-family:var(--mono);font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;background:rgba(201,169,110,.04);font-weight:600;}
+.checkgrid .dim{font-weight:600;color:var(--cream)}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.mini{background:rgba(201,169,110,.04);border:1px solid var(--border);border-radius:16px;padding:16px;}
+.mini .n{font-family:var(--mono);color:var(--gold);font-size:11px;letter-spacing:.08em;margin-bottom:8px;}
+.compare{display:grid;grid-template-columns:220px 1fr 1fr;border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.compare > div{padding:12px 12px;border-right:1px solid var(--border2);border-bottom:1px solid var(--border2);font-size:14px;}
+.compare > div:nth-child(3n){border-right:none}
+.compare .head{background:rgba(201,169,110,.04);font-family:var(--mono);font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;}
+.casebox{border:1px solid var(--border);border-radius:18px;padding:18px;background:rgba(255,255,255,.02);}
+textarea.mock{width:100%;min-height:140px;background:rgba(12,11,9,.9);border:1px dashed rgba(201,169,110,.28);color:rgba(240,234,216,.86);padding:12px;border-radius:12px;font-family:var(--serif);font-size:15px;}
+@media(max-width:900px){.grid2,.grid3,.cards{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#111}.page{max-width:none;padding:16mm}nav.top{display:none}.card,.mini,.casebox,.table-wrap{break-inside:avoid}}
+</style></head><body><div class="page"><header><div class="eyebrow">EMI dossier / page 03</div><h1>Comparative Matrix</h1><p class="lead">A comparative view of HLaS / WP2 and ATMOS_FERA as two embedded probes, with provisional hypotheses and evidence prompts for developing the article from practice.</p><nav class="top"><a href="literature_map.html">Literature Map</a><a href="emi_operational_checklist.html">EMI Checklist</a><a href="comparative_matrix.html">Comparative Matrix</a></nav></header>
+<section><div class="note">This comparative page places the two cases side by side and turns EMI into a concrete reflective instrument. The current content should be read as <strong>provisional hypotheses</strong> and <strong>evidence prompts</strong>, not as final claims.</div></section>
+<section><h2>1. Comparative matrix</h2><div class="compare"><div class="head">Dimension</div><div class="head">HLaS / WP2</div><div class="head">ATMOS_FERA</div><div><strong>Setting</strong></div><div>Health-oriented consortium / institutional collaboration</div><div>Art–science–technology project in dialogue with scientific datasets and researchers</div><div><strong>Collaboration logic</strong></div><div>Structured, deliverable-driven, coordinated, policy-adjacent</div><div>More open and artistic, but still collaborative and knowledge-intensive</div><div><strong>Artistic role</strong></div><div>Embedded within consortium logic; role likely negotiated against existing expectations</div><div>Artistic lead with scientific dialogue; role may be clearer artistically but less formally articulated epistemically</div><div><strong>Main epistemic stake</strong></div><div>How artistic research operates inside an applied institutional framework</div><div>How scientific material becomes experiential / atmospheric / perceptual</div><div><strong>Likely EMI strengths</strong></div><div>Evaluation friction; authority; context & stage sensitivity</div><div>Experiential reorientation; problem reconfiguration; knowledge integration</div><div><strong>Likely EMI risks</strong></div><div>Too much inferred from memory; need more concrete traces</div><div>May drift into aesthetic description unless anchored in collaboration traces</div><div><strong>Evidence currently available</strong></div><div>consortium materials, presentations, emails, role descriptions, reflections, workshop notes</div><div>project descriptions, scientific dialogue traces, datasets, artist statements, audience/collaborator reflections</div><div><strong>Main question to verify</strong></div><div>What exactly changed because artistic research was present?</div><div>What exactly changed in how scientific material was framed, experienced, or discussed?</div></div></section>
+<section><h2>2. Case sheet — HLaS / WP2</h2><div class="casebox"><p><span class="badge">Provisional hypothesis</span> HLaS is likely the stronger case for showing <strong>evaluation friction</strong>, <strong>role ambiguity</strong>, and the difficulty of articulating artistic research inside a consortium language of deliverables, outcomes, and applied collaboration.</p><div class="table-wrap" style="margin-top:12px"><table><thead><tr><th>EMI dimension</th><th>Provisional hypothesis</th><th>Evidence to locate</th><th>Status</th></tr></thead><tbody><tr><td>Problem Reconfiguration</td><td>Did the artistic-research contribution shift the framing away from purely behavioral / technological / solutionist terms toward experiential, social, or aesthetic conditions?</td><td>early project descriptions, revised framing, slide decks, conversations with collaborators</td><td>to verify</td></tr><tr><td>Knowledge Integration</td><td>Did the collaboration bring health, technology, lived experience, artistic and atmospheric knowledge into relation?</td><td>workshop formats, co-design processes, project outputs, participant feedback</td><td>to verify</td></tr><tr><td>Epistemic Position & Authority</td><td>Was the artistic-research role positioned as co-framer of the issue, or mainly as communicator / output producer?</td><td>meeting roles, decision moments, who shaped agenda, who defined success</td><td>to verify</td></tr><tr><td>Experiential Reorientation</td><td>Did the artistic work alter how collaborators or participants understood the issue experientially?</td><td>reflections, observations, reactions, language shifts</td><td>to verify</td></tr><tr><td>Evaluation Friction</td><td>Where did consortium language fail to capture the contribution of artistic research?</td><td>deliverables, reporting formats, moments of mismatch, internal doubt</td><td>likely strong</td></tr><tr><td>Context & Stage Sensitivity</td><td>At what moment did the artistic-research contribution become legible, if at all?</td><td>project timeline, early vs late stages, different institutional moments</td><td>to verify</td></tr></tbody></table></div><section><h3>Quick notes field</h3><textarea class="mock">Write here:
+- what you actually did
+- where you felt the role problem most sharply
+- one or two concrete friction moments
+- what traces you can still retrieve</textarea></section></div></section>
+<section><h2>3. Case sheet — ATMOS_FERA</h2><div class="casebox"><p><span class="badge">Provisional hypothesis</span> ATMOS_FERA is likely the stronger case for showing <strong>experiential reorientation</strong>, <strong>knowledge integration</strong>, and the transformation of scientific material into an alternative mode of sensing and meaning-making.</p><div class="table-wrap" style="margin-top:12px"><table><thead><tr><th>EMI dimension</th><th>Provisional hypothesis</th><th>Evidence to locate</th><th>Status</th></tr></thead><tbody><tr><td>Problem Reconfiguration</td><td>Did the project reframe planetary data from representation to inhabitation, atmosphere, or perceptual relation?</td><td>artist statements, project descriptions, scientific exchange, presentation materials</td><td>likely strong</td></tr><tr><td>Knowledge Integration</td><td>Did the work combine astronomy / data / artistic environment / audience perception in a meaningful way?</td><td>dataset use, technical process notes, conversations with scientists, installation logic</td><td>likely strong</td></tr><tr><td>Epistemic Position & Authority</td><td>How was authority negotiated between scientific source material and artistic transformation?</td><td>moments of translation, discussions of fidelity vs transformation, collaborators’ responses</td><td>to verify</td></tr><tr><td>Experiential Reorientation</td><td>Did collaborators or audiences come to sense planetary conditions differently through the project?</td><td>feedback, observation, post-talk conversations, reviews or notes</td><td>likely strong</td></tr><tr><td>Evaluation Friction</td><td>Where did art/science language prove inadequate for describing what the project was doing?</td><td>curatorial framing, scientific reception, discomfort with available terms</td><td>to verify</td></tr><tr><td>Context & Stage Sensitivity</td><td>At which stage was the epistemic contribution most visible: concept, making, performance, reflection?</td><td>process timeline, rehearsals, scientific dialogue, performance context</td><td>to verify</td></tr></tbody></table></div><section><h3>Quick notes field</h3><textarea class="mock">Write here:
+- where the scientific dialogue actually mattered
+- what changed in your own relation to the data
+- what others said or reflected back
+- where the collaboration exceeded existing categories</textarea></section></div></section>
+<section><h2>4. Cross-case takeaways to test</h2><div class="grid2"><div class="card"><h3>Possible commonality</h3><p>In both cases, the role problem may be less about “impact” and more about <strong>how to name artistic research as part of collaborative knowledge-making</strong>.</p></div><div class="card"><h3>Possible divergence</h3><p>HLaS may reveal the institutional and evaluative side of the problem more sharply, while ATMOS_FERA may reveal the epistemic and experiential side more sharply.</p></div></div></section>
+<section><h2>5. What would count as enough for the article?</h2><ul class="tight"><li>Not “proof” that EMI works universally.</li><li>Enough would be: two reflective, well-structured case analyses showing <strong>why the need for EMI emerges</strong>.</li><li>Best evidence: concrete traces of role ambiguity, reframing, friction, or experiential shift.</li><li>Best conclusion: EMI is worth testing further, not already validated.</li></ul></section>
+<div class="footer">EMI dossier pages · working materials for April meeting / FORUM+ development · developed from the project memo and literature syntheses</div></div></body></html>

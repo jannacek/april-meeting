@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>EMI Operational Checklist</title><style>
+:root{
+  --bg:#0c0b09;
+  --surface:#141210;
+  --surface2:#191612;
+  --border:rgba(201,169,110,0.18);
+  --border2:rgba(255,255,255,0.08);
+  --gold:#c9a96e;
+  --goldlt:#e8cfa0;
+  --cream:#f0ead8;
+  --muted:#9d927f;
+  --muted2:#756c5c;
+  --accent:#7a9e8e;
+  --red:#b97070;
+  --serif:'Georgia', 'Times New Roman', serif;
+  --mono:'Menlo','Consolas',monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--cream);font-family:var(--serif);}
+body{line-height:1.65}
+.page{max-width:1100px;margin:0 auto;padding:42px 38px 68px;position:relative;}
+header{margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.eyebrow{font-family:var(--mono);color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:11px;opacity:.8;margin-bottom:10px;}
+h1{margin:0 0 12px;font-weight:400;font-size:46px;line-height:1.08;}
+h1 em,h2 em{font-style:italic;color:var(--goldlt)}
+.lead{max-width:760px;color:rgba(240,234,216,.82);font-size:20px;}
+nav.top{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
+nav.top a{color:var(--gold);text-decoration:none;border:1px solid var(--border);padding:7px 11px;border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;}
+section{margin-top:34px;padding-top:8px;}
+h2{font-size:28px;font-weight:400;margin:0 0 12px;}
+h3{font-size:19px;font-weight:500;margin:0 0 10px;color:var(--goldlt);}
+p, li{font-size:17px;color:rgba(240,234,216,.82)}
+.small{font-size:13px;color:var(--muted)}
+.note{border-left:2px solid var(--gold);padding:10px 16px;background:rgba(201,169,110,.05);max-width:860px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.card{background:linear-gradient(180deg,rgba(201,169,110,.05),rgba(255,255,255,.02));border:1px solid var(--border);border-radius:14px;padding:18px 18px 16px;}
+.card h3{margin-bottom:8px;font-size:18px}
+.card p,.card li{font-size:15px}
+.table-wrap{overflow:auto;border:1px solid var(--border);border-radius:16px;background:rgba(255,255,255,.02);}
+table{width:100%;border-collapse:collapse;min-width:880px;}
+th,td{padding:14px 14px;vertical-align:top;border-bottom:1px solid var(--border2);}
+th{text-align:left;font-family:var(--mono);font-size:12px;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;background:rgba(201,169,110,.04);}
+td{font-size:15px;color:rgba(240,234,216,.8);}
+tr:last-child td{border-bottom:none}
+.badge{display:inline-block;padding:3px 8px;border:1px solid var(--border);border-radius:999px;color:var(--gold);font-family:var(--mono);font-size:11px;letter-spacing:.06em;margin-right:8px;}
+ul.tight{padding-left:18px;margin:8px 0}
+ul.tight li{margin:6px 0}
+.muted{color:var(--muted)}
+.footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--border);color:var(--muted2);font-family:var(--mono);font-size:11px;letter-spacing:.04em;}
+.printhint{font-family:var(--mono);font-size:11px;color:var(--muted);}
+.callout{padding:14px 16px;border-radius:14px;border:1px solid var(--border);background:rgba(122,158,142,.08);}
+.checkgrid{display:grid;grid-template-columns:240px 1fr 1fr 1fr 120px 1fr;gap:0;border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.checkgrid > div{padding:12px 12px;border-right:1px solid var(--border2);border-bottom:1px solid var(--border2);min-height:64px;font-size:14px;}
+.checkgrid > div:nth-child(6n){border-right:none}
+.checkgrid .head{font-family:var(--mono);font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;background:rgba(201,169,110,.04);font-weight:600;}
+.checkgrid .dim{font-weight:600;color:var(--cream)}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.mini{background:rgba(201,169,110,.04);border:1px solid var(--border);border-radius:16px;padding:16px;}
+.mini .n{font-family:var(--mono);color:var(--gold);font-size:11px;letter-spacing:.08em;margin-bottom:8px;}
+.compare{display:grid;grid-template-columns:220px 1fr 1fr;border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.compare > div{padding:12px 12px;border-right:1px solid var(--border2);border-bottom:1px solid var(--border2);font-size:14px;}
+.compare > div:nth-child(3n){border-right:none}
+.compare .head{background:rgba(201,169,110,.04);font-family:var(--mono);font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;}
+.casebox{border:1px solid var(--border);border-radius:18px;padding:18px;background:rgba(255,255,255,.02);}
+textarea.mock{width:100%;min-height:140px;background:rgba(12,11,9,.9);border:1px dashed rgba(201,169,110,.28);color:rgba(240,234,216,.86);padding:12px;border-radius:12px;font-family:var(--serif);font-size:15px;}
+@media(max-width:900px){.grid2,.grid3,.cards{grid-template-columns:1fr}}
+@media print{body{background:#fff;color:#111}.page{max-width:none;padding:16mm}nav.top{display:none}.card,.mini,.casebox,.table-wrap{break-inside:avoid}}
+</style></head><body><div class="page"><header><div class="eyebrow">EMI dossier / page 02</div><h1>EMI Operational Checklist</h1><p class="lead">A practical, qualitative tool for applying EMI before, during, and after collaboration — designed to remain reflective rather than managerial.</p><nav class="top"><a href="literature_map.html">Literature Map</a><a href="emi_operational_checklist.html">EMI Checklist</a><a href="comparative_matrix.html">Comparative Matrix</a></nav></header>
+<section><div class="note">EMI is used here as an <strong>operational, reflective tool</strong>. The point is not to score a collaboration, but to help artist-researchers and collaborators identify what artistic research is doing, where tensions emerge, and what still cannot be named clearly.</div></section>
+<section><h2>1. How to use this page</h2><div class="grid3"><div class="card"><h3>Before the project</h3><p>Use EMI to clarify role, expectations, knowledge types, and likely sites of friction before they stay implicit.</p></div><div class="card"><h3>During the project</h3><p>Use EMI to document shifts, tensions, reframings, and mismatches between what the collaboration asks for and what it actually produces.</p></div><div class="card"><h3>After the project</h3><p>Use EMI to reflect on what changed, what remained unresolved, and where the framework itself failed to capture the work.</p></div></div></section>
+<section><h2>2. Operational checklist</h2><div class="checkgrid"><div class="head">Dimension</div><div class="head">Guiding question</div><div class="head">Possible indicators</div><div class="head">Evidence traces</div><div class="head">Present?</div><div class="head">Notes / tensions</div><div class="dim">1. Problem Reconfiguration</div><div>Did the artistic work shift how the issue or research problem was framed?</div><div>new research questions; changed vocabulary; altered scope; movement from output framing to experiential or perceptual framing</div><div>meeting notes; revised briefs; new formulations in emails or presentations</div><div>yes / no / partial</div><div>What changed? Who noticed? Was the shift welcomed or resisted?</div><div class="dim">2. Knowledge Integration</div><div>What kinds of knowledge were brought into relation?</div><div>scientific + experiential; embodied + technical; local + formal; artistic + disciplinary</div><div>workshop materials; diagrams; collaborative decisions; documentation of synthesis moments</div><div>yes / no / partial</div><div>Which knowledge types remained disconnected?</div><div class="dim">3. Epistemic Position & Authority</div><div>Did the artistic intervention affect who could define relevance, meaning, or direction?</div><div>changes in who leads discussion; redistribution of interpretive authority; tension around legitimacy</div><div>meeting dynamics; authorship decisions; feedback patterns; role descriptions</div><div>yes / no / partial</div><div>Did the artist-researcher shape questions, or only outputs?</div><div class="dim">4. Experiential Reorientation</div><div>Did participants begin to sense, perceive, or relate to the issue differently?</div><div>statements like “I see it differently now”; affective or bodily response; altered relation to data or models</div><div>testimonials; observation notes; audience or collaborator reflections</div><div>yes / no / partial</div><div>Was the shift durable, superficial, or only momentary?</div><div class="dim">5. Evaluation Friction</div><div>Where did existing evaluative language fail to capture what the work was doing?</div><div>pressure for measurable outcomes; mismatch with deliverables; disagreement over value or rigor</div><div>consortium language; funding logic; debrief notes; conflict points</div><div>yes / no / partial</div><div>What could be felt but not adequately named?</div><div class="dim">6. Context & Stage Sensitivity</div><div>Under what institutional conditions and at what stage did the contribution become visible?</div><div>differences between planning, implementation, reflection, presentation; role of timeline, governance, funding pressures</div><div>project schedule; changes over time; stage-specific observations</div><div>yes / no / partial</div><div>Would the same contribution appear in another setting?</div></div></section>
+<section><h2>3. Card deck preview</h2><p class="printhint">This section is designed to be adapted into printed cards or a physical discussion device for the meeting.</p><div class="cards"><div class="mini"><div class="n">EMI 01</div><h3>Problem Reconfiguration</h3><p><strong>Prompt:</strong> What changed in how the project understood the problem?</p><p><strong>Look for:</strong> changed wording, new questions, altered priorities.</p></div><div class="mini"><div class="n">EMI 02</div><h3>Knowledge Integration</h3><p><strong>Prompt:</strong> What kinds of knowledge were brought into relation?</p><p><strong>Look for:</strong> scientific, experiential, embodied, artistic, local, technical.</p></div><div class="mini"><div class="n">EMI 03</div><h3>Epistemic Position & Authority</h3><p><strong>Prompt:</strong> Who got to define meaning or relevance?</p><p><strong>Look for:</strong> role shifts, authority tensions, interpretive power.</p></div><div class="mini"><div class="n">EMI 04</div><h3>Experiential Reorientation</h3><p><strong>Prompt:</strong> Did people begin to sense the issue differently?</p><p><strong>Look for:</strong> statements of re-seeing, affect, altered relation to data.</p></div><div class="mini"><div class="n">EMI 05</div><h3>Evaluation Friction</h3><p><strong>Prompt:</strong> Where did the usual evaluative language fail?</p><p><strong>Look for:</strong> mismatch with outputs, impact, evidence, usefulness.</p></div><div class="mini"><div class="n">EMI 06</div><h3>Context & Stage Sensitivity</h3><p><strong>Prompt:</strong> When and under what conditions did the contribution become visible?</p><p><strong>Look for:</strong> differences between early, middle, final phases.</p></div></div></section>
+<section><h2>4. Short protocol for applying EMI to a case</h2><ol class="tight"><li>Define the collaborative setting in one sentence.</li><li>List the actual role, not the idealized role.</li><li>Fill the EMI checklist quickly from memory.</li><li>Then locate evidence traces that support, nuance, or contradict the first pass.</li><li>Mark where EMI helps and where it fails to capture the case.</li><li>Use those failure points as inputs for EMI v0.4.</li></ol></section>
+<section><h2>5. Important caution</h2><div class="callout">EMI should not become a tool that flattens artistic research into checklist compliance. Its usefulness depends on remaining <strong>diagnostic</strong>, <strong>reflective</strong>, and <strong>open to revision</strong>.</div></section>
+<div class="footer">EMI dossier pages · working materials for April meeting / FORUM+ development · developed from the project memo and literature syntheses</div></div></body></html>
