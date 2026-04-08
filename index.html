@@ -472,6 +472,37 @@ h2.disp em { font-style: italic; color: var(--gold-lt); }
 }
 .q-item:hover .q-text { color: var(--cream); }
 
+/* ══════════════════ DOSSIER BUTTONS ══════════════════ */
+
+.dossier-btn {
+  position: absolute; top: 20px; right: 20px; z-index: 30;
+  display: flex; align-items: center; gap: 7px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--muted);
+  text-decoration: none;
+  padding: 6px 12px 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: rgba(12,11,9,0.7);
+  backdrop-filter: blur(10px);
+  opacity: 0; pointer-events: none;
+  transition: color 0.25s, border-color 0.25s, background 0.25s, transform 0.25s;
+}
+.slide.on .dossier-btn {
+  opacity: 1; pointer-events: auto;
+  transition: color 0.25s, border-color 0.25s, background 0.25s, transform 0.25s, opacity 0.4s 0.55s;
+}
+.dossier-btn:hover {
+  color: var(--gold); border-color: rgba(201,169,110,0.35);
+  background: rgba(201,169,110,0.08); transform: translateY(-1px);
+}
+.dossier-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold); opacity: 0.45; flex-shrink: 0;
+  transition: opacity 0.25s;
+}
+.dossier-btn:hover .dossier-dot { opacity: 1; }
+
 /* ══════════════════ CONTROLS ══════════════════ */
 
 #nav-ctrl {
@@ -634,6 +665,7 @@ h2.disp em { font-style: italic; color: var(--gold-lt); }
 
     <!-- 2: Existing Frameworks & the Gap -->
     <div class="slide" id="slide-2">
+      <a href="literature_map.html" target="_blank" class="dossier-btn"><span class="dossier-dot"></span>Literature Map</a>
       <div class="ghost">Existing</div>
       <div class="s-eyebrow">Literature & Gap</div>
       <div class="s-rule"></div>
@@ -670,6 +702,7 @@ h2.disp em { font-style: italic; color: var(--gold-lt); }
 
     <!-- 4: Two Embedded Probes -->
     <div class="slide" id="slide-4">
+      <a href="comparative_matrix.html" target="_blank" class="dossier-btn"><span class="dossier-dot"></span>Case Matrix</a>
       <div class="ghost">Probes</div>
       <div class="s-eyebrow">Cases</div>
       <div class="s-rule"></div>
@@ -697,6 +730,7 @@ h2.disp em { font-style: italic; color: var(--gold-lt); }
 
     <!-- 5: EMI v0.3 -->
     <div class="slide" id="slide-5">
+      <a href="emi_operational_checklist.html" target="_blank" class="dossier-btn"><span class="dossier-dot"></span>EMI Checklist</a>
       <div class="ghost">EMI</div>
       <div class="s-eyebrow">Analytic Vocabulary</div>
       <div class="s-rule"></div>
