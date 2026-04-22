@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Artistic Research in Transdisciplinary Consortia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -512,16 +512,19 @@ h2.disp em { font-style: italic; color: var(--gold); }
 /* ══════════════════ CONTROLS ══════════════════ */
 
 #nav-ctrl {
-  position: absolute; bottom: 26px; right: 34px;
+  position: absolute;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  right: 28px;
   display: flex; align-items: center; gap: 8px; z-index: 50;
 }
 .ctrl-btn {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   background: rgba(244,241,235,0.92); border: 1px solid var(--border);
   cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-size: 15px; color: var(--muted2); backdrop-filter: blur(10px);
+  font-size: 16px; color: var(--muted2); backdrop-filter: blur(10px);
   transition: background 0.25s, transform 0.25s, border-color 0.25s, box-shadow 0.25s;
   user-select: none; position: relative; overflow: hidden;
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
 }
 .ctrl-btn::before {
   content: ''; position: absolute; inset: 0; border-radius: 50%;
@@ -548,8 +551,10 @@ h2.disp em { font-style: italic; color: var(--gold); }
 /* ══════════════════ DOTS ══════════════════ */
 
 #dots {
-  position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%);
-  display: flex; gap: 8px; z-index: 50;
+  position: absolute;
+  bottom: calc(30px + env(safe-area-inset-bottom, 0px));
+  left: 50%; transform: translateX(-50%);
+  display: flex; gap: 10px; z-index: 50;
 }
 .dot {
   width: 5px; height: 5px; border-radius: 50%;
@@ -608,7 +613,7 @@ h2.disp em { font-style: italic; color: var(--gold); }
   <div id="sidebar">
     <div class="sb-meta">
       <div class="sb-author">Agustín Martínez Caram</div>
-      <div class="sb-label">FORUM+ · April 2026 · Groningen</div>
+      <div class="sb-label">April 2026 · Groningen</div>
     </div>
     <div class="sb-section">
       <div class="sb-section-title">Presentation</div>
@@ -644,7 +649,7 @@ h2.disp em { font-style: italic; color: var(--gold); }
       <div class="pq">
         <p>In both, I found myself asking: what exactly am I contributing here, epistemically? Not outputs. Not atmosphere. Not outreach. What am I actually doing to how knowledge gets made?</p>
       </div>
-      <p class="sub-note">↳ That question is the starting point of the FORUM+ article I'm developing.</p>
+      <p class="sub-note">↳ That question is the starting point of the article I'm developing.</p>
     </div>
 
     <!-- 1: Core Question -->
@@ -806,11 +811,11 @@ h2.disp em { font-style: italic; color: var(--gold); }
       <div class="q-list">
         <div class="q-item">
           <span class="q-num">01</span>
-          <div class="q-text">Does this identify a real problem in how artistic research is positioned inside collaboration?</div>
+          <div class="q-text">Does this name a real problem in how artistic research is currently positioned in transdisciplinary collaboration?</div>
         </div>
         <div class="q-item">
           <span class="q-num">02</span>
-          <div class="q-text">Could something like EMI be useful at the beginning of a consortium, not only afterward?</div>
+          <div class="q-text">What kinds of collaborative settings would be most useful for testing and refining EMI as a reflective tool?</div>
         </div>
       </div>
     </div>
@@ -847,7 +852,7 @@ h2.disp em { font-style: italic; color: var(--gold); }
 
   const NOTES = [
     // 0 — Starting Point ~1 min
-    `I want to start from where this work actually comes from.\n\nIn the past few years I've been working inside different collaborative research environments. Most concretely: WP2 of Healthy Living as a Service, a health consortium in the Netherlands. And ATMOS_FERA, where I worked closely with scientific datasets and researchers to develop an immersive art-science project.\n\nIn both, I found myself asking the same question — not about whether I was useful, not about outputs or visibility, but something more precise: what am I actually contributing here, epistemically? What am I doing to how knowledge gets made in this collaboration?\n\nThat question is the starting point of the FORUM+ article I'm developing.`,
+    `I want to start from where this work actually comes from.\n\nIn the past few years I've been working inside different collaborative research environments. Most concretely: WP2 of Healthy Living as a Service, a health consortium in the Netherlands. And ATMOS_FERA, where I worked closely with scientific datasets and researchers to develop an immersive art-science project.\n\nIn both, I found myself asking the same question — not about whether I was useful, not about outputs or visibility, but something more precise: what am I actually contributing here, epistemically? What am I doing to how knowledge gets made in this collaboration?\n\nThat question is the starting point of the article I'm developing.`,
 
     // 1 — Core Question ~1 min
     `I want to be direct about what the question is — and what it isn't.\n\nIt is not: is artistic research valuable? That conversation tends to go in circles. And it usually ends up defending artistic research against a skeptical audience, which is not what I want to do.\n\nThe question I'm asking is: how does artistic research affect the epistemic conditions of a collaboration? By that I mean specific, concrete things — how problems get framed, what counts as evidence, how knowledge is negotiated, and how authority gets distributed.\n\nThis is a different register. It's asking what artistic research changes at the level of how knowledge is produced, not just what it outputs.`,
