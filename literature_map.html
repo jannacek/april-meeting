@@ -94,6 +94,24 @@ ul.tight li:hover{color:var(--cream);padding-left:28px;}
 .footer{margin-top:72px;padding-top:22px;border-top:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.08em;opacity:0.5;display:flex;justify-content:space-between;align-items:center;}
 
 @media(max-width:860px){.page{padding:0 24px 80px;}.topbar{padding:0 24px;}.grid2,.grid3{grid-template-columns:1fr;}}
+
+/* ── COPYRIGHT FOOTER ── */
+.copyright-section{margin-top:56px;border-top:1px solid var(--border);padding-top:0}
+.copyright-header{display:flex;justify-content:space-between;align-items:center;padding:18px 0;}
+
+.copyright-label{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;color:rgba(240,234,216,0.55);text-transform:uppercase}
+.copyright-toggle{font-family:var(--mono);font-size:9px;letter-spacing:0.2em;color:rgba(240,234,216,0.35);text-transform:uppercase}
+
+.copyright-body{max-height:0;overflow:hidden;transition:max-height 0.55s cubic-bezier(0.4,0,0.2,1),opacity 0.4s ease;opacity:0}
+.copyright-body.open{max-height:600px;opacity:1}
+.copyright-inner{padding-bottom:28px;display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.copyright-inner p{font-family:var(--serif);font-size:15px;color:rgba(240,234,216,0.72);line-height:1.7;margin-bottom:0.75em}
+.copyright-inner strong{color:rgba(240,234,216,0.90);font-weight:600}
+.copyright-inner a{color:var(--gold);text-decoration:none;transition:color 0.25s}
+.copyright-inner a:hover{color:var(--accent)}
+.copyright-divider{grid-column:span 2;height:1px;background:var(--border);margin-bottom:22px}
+@media(max-width:620px){.copyright-inner{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -245,7 +263,29 @@ ul.tight li:hover{color:var(--cream);padding-left:28px;}
     </div>
   </section>
 
-  <footer class="footer">
+  
+  <!-- COPYRIGHT -->
+  <div class="copyright-section" id="copyright">
+    <div class="copyright-header">
+      <span class="copyright-label">© 2025 Agustín Martínez Caram · All rights reserved</span>
+      <span class="copyright-toggle" id="copyright-toggle">Usage &amp; Rights</span>
+    </div>
+    <div class="copyright-body open" id="copyright-body" role="region">
+      <div class="copyright-inner">
+        <div class="copyright-divider"></div>
+        <div>
+          <p>All content on these pages — including conceptual frameworks, analytic vocabularies, case materials, and structural design — is the intellectual property of <strong>Agustín Martínez Caram</strong> unless otherwise credited.</p>
+          <p>Reproduction, distribution, or adaptation of any material requires prior written consent. Academic citation and critical writing are permitted with full attribution.</p>
+        </div>
+        <div>
+          <p>These pages are working materials developed in connection with a <strong>FORUM+</strong> article in progress on epistemic mediation in transdisciplinary artistic research.</p>
+          <p>For enquiries, collaboration, or further information: <a href="https://martinezcaram.com">martinezcaram.com ↗</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<footer class="footer">
     <span>EMI Dossier · Literature Map · working materials for April meeting / FORUM+ development</span>
     <span>01 / 03</span>
   </footer>
@@ -256,6 +296,16 @@ const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('section').forEach(s => observer.observe(s));
+
+/* ── COPYRIGHT TOGGLE ── */
+function toggleCopyright(){
+  const body=document.getElementById("copyright-body");
+  const toggle=document.getElementById("copyright-toggle");
+  const header=document.querySelector(".copyright-header");
+  const isOpen=body.classList.toggle("open");
+  toggle.textContent=isOpen?"− Close":"+ Usage & Rights";
+  header.setAttribute("aria-expanded",isOpen);
+}
 </script>
 </body>
 </html>
